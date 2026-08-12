@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#5b5bd6" />
+  <meta name="description" content="面向一至六年级孩子的每日奥数学习计划" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>思维星球 · 每日奥数</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css?v=24" />
+</head>
+<body>
+  <div class="app-shell">
+    <main>
+      <section id="setupView" class="setup-view" hidden>
+        <div class="setup-copy">
+          <span class="eyebrow">开启一段思维旅程</span>
+          <h1>把奥数，变成每天<br><em>20 分钟</em>的小期待</h1>
+          <p>每天 2–3 个短视频，再做 3 道小题。轻松坚持，不给孩子增加负担。</p>
+          <div class="setup-benefits">
+            <div><b>15</b><span>分钟视频</span></div>
+            <div><b>3</b><span>道趣味练习</span></div>
+            <div><b>1</b><span>次每日打卡</span></div>
+          </div>
+        </div>
+
+        <form class="setup-card" id="setupForm">
+          <div class="planet planet-a">＋</div><div class="planet planet-b">×</div>
+          <span class="step-label">家长设置 · 只需一次</span>
+          <h2>制定学习计划</h2>
+          <label>孩子的名字
+            <input id="childName" name="childName" maxlength="8" placeholder="例如：小宇" required />
+          </label>
+          <label>目前年级
+            <select id="grade" name="grade" required>
+              <option value="1">一年级</option><option value="2">二年级</option>
+              <option value="3">三年级</option><option value="4">四年级</option>
+              <option value="5">五年级</option><option value="6">六年级</option>
+            </select>
+          </label>
+          <label>计划开始日期
+            <input id="startDate" name="startDate" type="date" required />
+          </label>
+          <div class="lock-note"><span>🔒</span><p><strong>开始后日期将锁定</strong><br>这样每天的内容和学习记录才不会乱哦</p></div>
+          <button class="primary-button" type="submit">开始思维之旅 <span>→</span></button>
+        </form>
+      </section>
+
+      <section id="dashboardView" class="dashboard" hidden>
+        <section class="plan-board" id="planBoard">
+          <div class="star-wallet"><span>★</span><div><small>我的思维星星</small><strong><b id="totalStars">0</b> 颗</strong></div></div>
+          <div class="date-strip-wrap">
+            <button class="date-arrow" id="datePrev" aria-label="向前查看日期">‹</button>
+            <div class="date-strip" id="dateStrip"></div>
+            <button class="date-arrow" id="dateNext" aria-label="向后查看日期">›</button>
+          </div>
+          <div class="date-legend"><span><i class="done-dot"></i>已完成</span><span><i class="today-dot"></i>今天</span><span><i class="makeup-dot"></i>待补任务</span><span><i class="locked-dot"></i>尚未解锁</span></div>
+        </section>
+        <div class="content-grid">
+          <section class="today-panel">
+            <div id="taskList" class="task-list"></div>
+          </section>
+
+        </div>
+
+      </section>
+    </main>
+
+  </div>
+
+  <dialog id="lessonDialog" class="modal lesson-modal">
+    <button class="modal-close" data-close="lessonDialog" aria-label="关闭">×</button>
+    <div class="lesson-stage">
+      <div class="lesson-number" id="lessonNumber">01</div>
+      <span id="lessonGradeBadge">三年级 · 思维训练</span>
+      <h2 id="lessonTitle"></h2>
+      <p id="lessonSummary"></p>
+      <div class="video-player-wrap" id="videoPlayerWrap">
+        <video id="lessonVideo" controls playsinline preload="metadata"></video>
+        <div class="video-loading" id="videoLoading"><span>▶</span><strong>点击播放今日课程</strong></div>
+      </div>
+      <section class="lesson-question" id="lessonQuestion"></section>
+      <div class="lesson-points" id="lessonPoints"></div>
+    </div>
+  </dialog>
+
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="curriculum.js?v=24"></script>
+  <script src="questions.js?v=24"></script>
+  <script src="app.js?v=24"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+      addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+    }
+  </script>
+</body>
+</html>

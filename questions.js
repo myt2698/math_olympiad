@@ -1,0 +1,998 @@
+window.MATH_PLANET_QUESTIONS = [
+  {
+    "videoId": "g1-v001",
+    "sourceTitle": "\u9700\u8981\u6362\u4f4d\u601d\u8003\u7684\u4f4d\u7f6e\u5173\u7cfb",
+    "q": "\u5c0f\u660e\u9762\u5411\u4e1c\u7ad9\u7740\u3002\u5c0f\u7ea2\u548c\u5c0f\u660e\u9762\u5bf9\u9762\u7ad9\u7740\uff0c\u5c0f\u7ea2\u9762\u5411\u54ea\u8fb9\uff1f",
+    "opts": [
+      "\u4e1c",
+      "\u897f",
+      "\u5357"
+    ],
+    "answer": 1,
+    "explain": "\u9762\u5bf9\u9762\u65f6\uff0c\u4e24\u4eba\u7684\u671d\u5411\u6b63\u597d\u76f8\u53cd\u3002"
+  },
+  {
+    "videoId": "g1-v002",
+    "sourceTitle": "\u5206\u7c7b",
+    "q": "\u4e0b\u9762\u54ea\u4e00\u4e2a\u548c\u53e6\u5916\u4e24\u4e2a\u4e0d\u662f\u540c\u4e00\u7c7b\uff1f",
+    "opts": [
+      "\u82f9\u679c",
+      "\u9999\u8549",
+      "\u76ae\u7403"
+    ],
+    "answer": 2,
+    "explain": "\u82f9\u679c\u548c\u9999\u8549\u90fd\u662f\u6c34\u679c\uff0c\u76ae\u7403\u662f\u73a9\u5177\u3002"
+  },
+  {
+    "videoId": "g1-v003",
+    "sourceTitle": "\u627e\u8def\u7ebf\u8d70\u4e00\u8d70",
+    "q": "\u4ece\u5bb6\u5230\u516c\u56ed\u8981\u5148\u5411\u53f3\u8d702\u683c\uff0c\u518d\u5411\u4e0a\u8d701\u683c\u3002\u539f\u8def\u8fd4\u56de\u65f6\u5e94\u8be5\u600e\u6837\u8d70\uff1f",
+    "opts": [
+      "\u5148\u5411\u4e0b\u8d701\u683c\uff0c\u518d\u5411\u5de6\u8d702\u683c",
+      "\u5148\u5411\u5de6\u8d702\u683c\uff0c\u518d\u5411\u4e0b\u8d701\u683c",
+      "\u5148\u5411\u4e0a\u8d701\u683c\uff0c\u518d\u5411\u53f3\u8d702\u683c"
+    ],
+    "answer": 0,
+    "explain": "\u539f\u8def\u8fd4\u56de\u65f6\uff0c\u8981\u5148\u628a\u6700\u540e\u8d70\u7684\u201c\u5411\u4e0a1\u683c\u201d\u53cd\u8fc7\u6765\u8d70\uff0c\u518d\u628a\u201c\u5411\u53f32\u683c\u201d\u53cd\u8fc7\u6765\u8d70\uff0c\u6240\u4ee5\u662f\u5148\u5411\u4e0b1\u683c\uff0c\u518d\u5411\u5de62\u683c\u3002"
+  },
+  {
+    "videoId": "g1-v004",
+    "sourceTitle": "\u6709\u8da3\u7684\u9ab0\u5b50",
+    "q": "\u666e\u901a\u9ab0\u5b50\u76f8\u5bf9\u4e24\u9762\u7684\u70b9\u6570\u548c\u662f7\u3002\u4e0e2\u70b9\u76f8\u5bf9\u7684\u662f\u51e0\uff1f",
+    "opts": [
+      "4",
+      "5",
+      "6"
+    ],
+    "answer": 1,
+    "explain": "2+5=7\uff0c\u6240\u4ee52\u70b9\u7684\u5bf9\u9762\u662f5\u70b9\u3002"
+  },
+  {
+    "videoId": "g1-v005",
+    "sourceTitle": "\u949f\u9762\u6570\u5b66\u521d\u6b65",
+    "q": "\u5206\u9488\u6307\u541112\uff0c\u65f6\u9488\u6307\u54113\uff0c\u949f\u9762\u8868\u793a\u51e0\u70b9\uff1f",
+    "opts": [
+      "3\u65f6",
+      "12\u65f63\u5206",
+      "3\u65f630\u5206"
+    ],
+    "answer": 0,
+    "explain": "\u6574\u70b9\u65f6\u5206\u9488\u6307\u541112\uff0c\u65f6\u9488\u6307\u5411\u51e0\u5c31\u662f\u51e0\u65f6\u3002"
+  },
+  {
+    "videoId": "g1-v006",
+    "sourceTitle": "\u8da3\u9898\u5de7\u89e3\u4e00",
+    "q": "\u505a\u4e00\u9053\u8da3\u9898\u65f6\uff0c\u54ea\u4e00\u6b65\u6700\u9002\u5408\u5148\u505a\uff1f",
+    "opts": [
+      "\u770b\u6e05\u9898\u76ee\u6761\u4ef6",
+      "\u9a6c\u4e0a\u731c\u7b54\u6848",
+      "\u53ea\u770b\u6700\u540e\u4e00\u53e5"
+    ],
+    "answer": 0,
+    "explain": "\u5148\u6574\u7406\u6e05\u695a\u5df2\u77e5\u6761\u4ef6\uff0c\u624d\u5bb9\u6613\u627e\u5230\u5de7\u5999\u7684\u65b9\u6cd5\u3002"
+  },
+  {
+    "videoId": "g1-v007",
+    "sourceTitle": "\u8ba4\u8bc6\u5947\u4e0e\u5076",
+    "q": "\u4e0b\u9762\u54ea\u4e2a\u6570\u662f\u5947\u6570\uff1f",
+    "opts": [
+      "12",
+      "16",
+      "19"
+    ],
+    "answer": 2,
+    "explain": "19\u4e0d\u80fd\u4e24\u4e2a\u4e24\u4e2a\u6b63\u597d\u5206\u5b8c\uff0c\u6240\u4ee5\u662f\u5947\u6570\u3002"
+  },
+  {
+    "videoId": "g1-v008",
+    "sourceTitle": "\u5947\u5076\u5206\u6790\u7684\u889c\u5b50\u5927\u6cd5",
+    "q": "\u62bd\u5c49\u91cc\u53ea\u6709\u9ed1\u3001\u767d\u4e24\u8272\u889c\u5b50\uff0c\u81f3\u5c11\u62ff\u51fa\u51e0\u53ea\uff0c\u4e00\u5b9a\u67092\u53ea\u540c\u8272\uff1f",
+    "opts": [
+      "2\u53ea",
+      "3\u53ea",
+      "4\u53ea"
+    ],
+    "answer": 1,
+    "explain": "\u6700\u574f\u5148\u62ff\u5230\u4e00\u9ed1\u4e00\u767d\uff0c\u7b2c3\u53ea\u4e00\u5b9a\u548c\u5176\u4e2d\u4e00\u53ea\u540c\u8272\u3002"
+  },
+  {
+    "videoId": "g1-v009",
+    "sourceTitle": "\u54ea\u676f\u6c34\u591a",
+    "q": "\u4e24\u4e2a\u5b8c\u5168\u76f8\u540c\u7684\u676f\u5b50\uff0c\u7532\u676f\u6c34\u9762\u66f4\u9ad8\u3002\u54ea\u676f\u6c34\u66f4\u591a\uff1f",
+    "opts": [
+      "\u7532\u676f",
+      "\u4e59\u676f",
+      "\u4e00\u6837\u591a"
+    ],
+    "answer": 0,
+    "explain": "\u676f\u5b50\u76f8\u540c\u65f6\uff0c\u6c34\u9762\u8d8a\u9ad8\uff0c\u6c34\u8d8a\u591a\u3002"
+  },
+  {
+    "videoId": "g1-v010",
+    "sourceTitle": "\u54ea\u676f\u6c34\u751c",
+    "q": "\u4e24\u676f\u6c34\u4e00\u6837\u591a\uff0c\u7532\u653e1\u52fa\u7cd6\uff0c\u4e59\u653e2\u52fa\u7cd6\u3002\u54ea\u676f\u66f4\u751c\uff1f",
+    "opts": [
+      "\u7532\u676f",
+      "\u4e59\u676f",
+      "\u4e00\u6837\u751c"
+    ],
+    "answer": 1,
+    "explain": "\u6c34\u4e00\u6837\u591a\u65f6\uff0c\u653e\u7cd6\u66f4\u591a\u7684\u4e59\u676f\u66f4\u751c\u3002"
+  },
+  {
+    "videoId": "g1-v011",
+    "sourceTitle": "\u6c34\u4f4d\u53d8\u9ad8",
+    "q": "\u628a\u4e00\u5757\u77f3\u5934\u5b8c\u5168\u653e\u8fdb\u88c5\u6c34\u7684\u676f\u4e2d\uff0c\u6c34\u4f4d\u901a\u5e38\u4f1a\u600e\u6837\uff1f",
+    "opts": [
+      "\u5347\u9ad8",
+      "\u964d\u4f4e",
+      "\u4e0d\u53d8"
+    ],
+    "answer": 0,
+    "explain": "\u77f3\u5934\u5360\u4e86\u676f\u4e2d\u7684\u7a7a\u95f4\uff0c\u4f1a\u628a\u6c34\u9762\u9876\u9ad8\u3002"
+  },
+  {
+    "videoId": "g1-v012",
+    "sourceTitle": "\u6c34\u4f4d\u53d8\u4f4e",
+    "q": "\u628a\u6d78\u5728\u6c34\u91cc\u7684\u79ef\u6728\u62ff\u51fa\u6765\uff0c\u6c34\u4f4d\u901a\u5e38\u4f1a\u600e\u6837\uff1f",
+    "opts": [
+      "\u5347\u9ad8",
+      "\u964d\u4f4e",
+      "\u4e0d\u53d8"
+    ],
+    "answer": 1,
+    "explain": "\u79ef\u6728\u4e0d\u518d\u5360\u6c34\u4e2d\u7684\u7a7a\u95f4\uff0c\u6c34\u4f4d\u4f1a\u964d\u4f4e\u3002"
+  },
+  {
+    "videoId": "g1-v013",
+    "sourceTitle": "\u52a0\u51cf\u706b\u67f4\u68d2",
+    "q": "\u201c\u52a0\u4e00\u6839\u706b\u67f4\u68d2\u201d\u65f6\uff0c\u706b\u67f4\u68d2\u603b\u6570\u4f1a\u600e\u6837\uff1f",
+    "opts": [
+      "\u591a1\u6839",
+      "\u5c111\u6839",
+      "\u4e0d\u53d8"
+    ],
+    "answer": 0,
+    "explain": "\u52a0\u4e00\u6839\u5c31\u662f\u5728\u539f\u6709\u6570\u91cf\u4e0a\u589e\u52a01\u3002"
+  },
+  {
+    "videoId": "g1-v014",
+    "sourceTitle": "\u79fb\u52a8\u706b\u67f4\u68d2",
+    "q": "\u628a\u4e00\u6839\u706b\u67f4\u4ece\u5de6\u8fb9\u79fb\u5230\u53f3\u8fb9\uff0c\u706b\u67f4\u603b\u6570\u4f1a\u600e\u6837\uff1f",
+    "opts": [
+      "\u591a1\u6839",
+      "\u5c111\u6839",
+      "\u4e0d\u53d8"
+    ],
+    "answer": 2,
+    "explain": "\u53ea\u662f\u79fb\u52a8\u4f4d\u7f6e\uff0c\u6ca1\u6709\u589e\u52a0\u6216\u62ff\u8d70\uff0c\u603b\u6570\u4e0d\u53d8\u3002"
+  },
+  {
+    "videoId": "g1-v015",
+    "sourceTitle": "\u949f\u9762\u6570\u5b66\u8fdb\u9636",
+    "q": "\u73b0\u5728\u662f2\u65f6\uff0c\u518d\u8fc73\u5c0f\u65f6\u662f\u51e0\u70b9\uff1f",
+    "opts": [
+      "4\u65f6",
+      "5\u65f6",
+      "6\u65f6"
+    ],
+    "answer": 1,
+    "explain": "\u65f6\u9488\u4ece2\u5411\u524d\u8d703\u683c\uff0c\u52305\u65f6\u3002"
+  },
+  {
+    "videoId": "g1-v016",
+    "sourceTitle": "\u949f\u9762\u4e0a\u7684\u8ba1\u7b97\uff08\u4e0a\uff09",
+    "q": "\u4ece7\u65f6\u52309\u65f6\uff0c\u4e00\u5171\u7ecf\u8fc7\u51e0\u5c0f\u65f6\uff1f",
+    "opts": [
+      "1\u5c0f\u65f6",
+      "2\u5c0f\u65f6",
+      "3\u5c0f\u65f6"
+    ],
+    "answer": 1,
+    "explain": "7\u52308\u662f1\u5c0f\u65f6\uff0c8\u52309\u53c8\u662f1\u5c0f\u65f6\u3002"
+  },
+  {
+    "videoId": "g1-v017",
+    "sourceTitle": "\u949f\u9762\u4e0a\u7684\u8ba1\u7b97\uff08\u4e0b\uff09",
+    "q": "\u73b0\u5728\u662f11\u65f6\uff0c2\u5c0f\u65f6\u540e\u662f\u51e0\u70b9\uff1f",
+    "opts": [
+      "12\u65f6",
+      "1\u65f6",
+      "13\u65f6"
+    ],
+    "answer": 1,
+    "explain": "11\u65f6\u8fc71\u5c0f\u65f6\u662f12\u65f6\uff0c\u518d\u8fc71\u5c0f\u65f6\u662f1\u65f6\u3002"
+  },
+  {
+    "videoId": "g1-v018",
+    "sourceTitle": "\u8ba4\u8bc6\u955c\u4e2d\u5bf9\u79f0",
+    "q": "\u4f60\u9762\u5bf9\u955c\u5b50\u4e3e\u8d77\u53f3\u624b\uff0c\u955c\u4e2d\u7684\u4eba\u770b\u8d77\u6765\u4e3e\u8d77\u54ea\u53ea\u624b\uff1f",
+    "opts": [
+      "\u5de6\u624b",
+      "\u53f3\u624b",
+      "\u4e24\u53ea\u624b"
+    ],
+    "answer": 0,
+    "explain": "\u955c\u9762\u4f1a\u628a\u5de6\u53f3\u65b9\u5411\u5bf9\u6362\u3002"
+  },
+  {
+    "videoId": "g1-v019",
+    "sourceTitle": "\u8f74\u5bf9\u79f0\u56fe\u5f62",
+    "q": "\u4e0b\u9762\u54ea\u4e2a\u56fe\u5f62\u6cbf\u4e2d\u95f4\u7ad6\u7ebf\u5bf9\u6298\u540e\u80fd\u5b8c\u5168\u91cd\u5408\uff1f",
+    "opts": [
+      "\u6b63\u65b9\u5f62",
+      "\u4e00\u822c\u7684\u659c\u4e09\u89d2\u5f62",
+      "\u4e0d\u89c4\u5219\u56db\u8fb9\u5f62"
+    ],
+    "answer": 0,
+    "explain": "\u6b63\u65b9\u5f62\u6cbf\u4e2d\u95f4\u7ad6\u7ebf\u5bf9\u6298\uff0c\u4e24\u8fb9\u80fd\u5b8c\u5168\u91cd\u5408\u3002"
+  },
+  {
+    "videoId": "g1-v020",
+    "sourceTitle": "1\u4eba\u7167\u955c\u5b50\u7684\u8ddd\u79bb\u8ba1\u7b97",
+    "q": "\u5c0f\u660e\u79bb\u955c\u5b502\u7c73\uff0c\u4ed6\u4e0e\u955c\u4e2d\u7684\u81ea\u5df1\u76f8\u8ddd\u591a\u5c11\u7c73\uff1f",
+    "opts": [
+      "2\u7c73",
+      "4\u7c73",
+      "6\u7c73"
+    ],
+    "answer": 1,
+    "explain": "\u50cf\u5728\u955c\u540e2\u7c73\u5904\uff0c\u4eba\u4e0e\u50cf\u7684\u8ddd\u79bb\u662f2+2=4\u7c73\u3002"
+  },
+  {
+    "videoId": "g1-v021",
+    "sourceTitle": "2\u4eba\u7167\u955c\u5b50\u7684\u8ddd\u79bb\u8ba1\u7b97",
+    "q": "\u7532\u3001\u4e59\u90fd\u7ad9\u5728\u955c\u5b50\u6b63\u524d\u65b9\u3002\u7532\u79bb\u955c\u97621\u7c73\uff0c\u4e59\u79bb\u955c\u97623\u7c73\u3002\u7532\u672c\u4eba\u5230\u4e59\u5728\u955c\u4e2d\u7684\u50cf\u76f8\u8ddd\u591a\u5c11\u7c73\uff1f",
+    "opts": [
+      "2\u7c73",
+      "4\u7c73",
+      "6\u7c73"
+    ],
+    "answer": 1,
+    "explain": "\u4e59\u7684\u50cf\u5728\u955c\u9762\u540e\u65b93\u7c73\u5904\uff0c\u7532\u672c\u4eba\u5728\u955c\u9762\u524d\u65b91\u7c73\u5904\uff0c\u6240\u4ee5\u4e24\u8005\u76f8\u8ddd1+3=4\u7c73\u3002"
+  },
+  {
+    "videoId": "g1-v022",
+    "sourceTitle": "\u5206\u5272\u6210\u76f8\u540c\u56fe\u5f62",
+    "q": "\u600e\u6837\u628a\u4e00\u4e2a\u6b63\u65b9\u5f62\u5206\u6210\u4e24\u4e2a\u5b8c\u5168\u76f8\u540c\u7684\u957f\u65b9\u5f62\uff1f",
+    "opts": [
+      "\u8fde\u63a5\u4e24\u6761\u5bf9\u8fb9\u7684\u4e2d\u70b9\uff0c\u6cbf\u8fde\u7ebf\u526a\u5f00",
+      "\u6cbf\u4e00\u6761\u5bf9\u89d2\u7ebf\u526a\u5f00",
+      "\u4ece\u4e00\u4e2a\u89d2\u526a\u6389\u4e00\u4e2a\u5c0f\u4e09\u89d2\u5f62"
+    ],
+    "answer": 0,
+    "explain": "\u8fde\u63a5\u4e24\u6761\u5bf9\u8fb9\u7684\u4e2d\u70b9\u5e76\u6cbf\u7ebf\u526a\u5f00\uff0c\u53ef\u4ee5\u5f97\u5230\u4e24\u4e2a\u5927\u5c0f\u3001\u5f62\u72b6\u5b8c\u5168\u76f8\u540c\u7684\u957f\u65b9\u5f62\u3002\u6cbf\u5bf9\u89d2\u7ebf\u526a\u5f00\u5f97\u5230\u7684\u662f\u4e09\u89d2\u5f62\u3002"
+  },
+  {
+    "videoId": "g1-v023",
+    "sourceTitle": "\u5206\u5272\u4e03\u5de7\u677f",
+    "q": "\u4e00\u526f\u5b8c\u6574\u7684\u4e03\u5de7\u677f\u4e00\u5171\u6709\u51e0\u5757\uff1f",
+    "opts": [
+      "5\u5757",
+      "7\u5757",
+      "9\u5757"
+    ],
+    "answer": 1,
+    "explain": "\u4e03\u5de7\u677f\u75317\u5757\u56fe\u5f62\u7ec4\u6210\u3002"
+  },
+  {
+    "videoId": "g1-v024",
+    "sourceTitle": "\u8ba4\u8bc6\u4eba\u6c11\u5e01",
+    "q": "1\u5143\u7b49\u4e8e\u591a\u5c11\u89d2\uff1f",
+    "opts": [
+      "10\u89d2",
+      "50\u89d2",
+      "100\u89d2"
+    ],
+    "answer": 0,
+    "explain": "\u4eba\u6c11\u5e01\u5355\u4f4d\u6362\u7b97\uff1a1\u5143=10\u89d2\u3002"
+  },
+  {
+    "videoId": "g1-v025",
+    "sourceTitle": "\u4eba\u6c11\u5e01\u7684\u8ba1\u7b97",
+    "q": "2\u51435\u89d2\u52a01\u51435\u89d2\uff0c\u4e00\u5171\u662f\u591a\u5c11\u94b1\uff1f",
+    "opts": [
+      "3\u5143",
+      "4\u5143",
+      "4\u51435\u89d2"
+    ],
+    "answer": 1,
+    "explain": "5\u89d2+5\u89d2=1\u5143\uff0c\u52a0\u4e0a3\u5143\u6b63\u597d\u662f4\u5143\u3002"
+  },
+  {
+    "videoId": "g1-v026",
+    "sourceTitle": "\u4eba\u6c11\u5e01\u7684\u5e94\u7528",
+    "q": "\u4e00\u4e2a\u672c\u5b503\u5143\uff0c\u4ed85\u5143\uff0c\u5e94\u627e\u56de\u591a\u5c11\u5143\uff1f",
+    "opts": [
+      "1\u5143",
+      "2\u5143",
+      "3\u5143"
+    ],
+    "answer": 1,
+    "explain": "5-3=2\u5143\u3002"
+  },
+  {
+    "videoId": "g1-v027",
+    "sourceTitle": "\u52a0\u4e0e\u51cf",
+    "q": "\u7bee\u5b50\u91cc\u67098\u4e2a\u82f9\u679c\uff0c\u62ff\u8d703\u4e2a\uff0c\u8fd8\u5269\u51e0\u4e2a\uff1f",
+    "opts": [
+      "5\u4e2a",
+      "6\u4e2a",
+      "11\u4e2a"
+    ],
+    "answer": 0,
+    "explain": "\u6c42\u5269\u4e0b\u7528\u51cf\u6cd5\uff1a8-3=5\u3002"
+  },
+  {
+    "videoId": "g1-v028",
+    "sourceTitle": "\u7b80\u5355\u7684\u56fe\u5f62\u6570\u91cf\u89c4\u5f8b",
+    "q": "\u7b2c1\u5e45\u67091\u4e2a\u5706\uff0c\u7b2c2\u5e45\u67092\u4e2a\u5706\uff0c\u7b2c3\u5e45\u67093\u4e2a\u5706\uff0c\u7b2c4\u5e45\u5e94\u6709\u51e0\u4e2a\u5706\uff1f",
+    "opts": [
+      "3\u4e2a",
+      "4\u4e2a",
+      "5\u4e2a"
+    ],
+    "answer": 1,
+    "explain": "\u6bcf\u4e00\u5e45\u90fd\u6bd4\u524d\u4e00\u5e45\u591a1\u4e2a\u5706\u3002"
+  },
+  {
+    "videoId": "g1-v029",
+    "sourceTitle": "\u7b80\u5355\u7684\u6570\u7684\u89c4\u5f8b",
+    "q": "2\uff0c4\uff0c6\uff0c\u4e0b\u4e00\u9879\u662f\u51e0\uff1f",
+    "opts": [
+      "7",
+      "8",
+      "10"
+    ],
+    "answer": 1,
+    "explain": "\u8fd9\u4e2a\u6570\u5217\u6bcf\u6b21\u589e\u52a02\u3002"
+  },
+  {
+    "videoId": "g1-v030",
+    "sourceTitle": "\u7b80\u5355\u7684\u56fe\u5f62\u89c4\u5f8b",
+    "q": "\u6309\u201c\u5706\u3001\u65b9\u3001\u5706\u3001\u65b9\u201d\u6392\u5217\uff0c\u4e0b\u4e00\u4e2a\u662f\u4ec0\u4e48\uff1f",
+    "opts": [
+      "\u5706",
+      "\u65b9",
+      "\u4e09\u89d2"
+    ],
+    "answer": 0,
+    "explain": "\u5706\u548c\u65b9\u4e24\u4e2a\u4e00\u7ec4\u91cd\u590d\u51fa\u73b0\u3002"
+  },
+  {
+    "videoId": "g1-v031",
+    "sourceTitle": "\u56fe\u5f62\u4f4d\u7f6e\u53d8\u5316\u89c4\u5f8b",
+    "q": "\u7bad\u5934\u4f9d\u6b21\u671d\u4e0a\u3001\u671d\u53f3\u3001\u671d\u4e0b\uff0c\u4e0b\u4e00\u4e2a\u5e94\u671d\u54ea\u8fb9\uff1f",
+    "opts": [
+      "\u4e0a",
+      "\u5de6",
+      "\u53f3"
+    ],
+    "answer": 1,
+    "explain": "\u7bad\u5934\u6bcf\u6b21\u987a\u65f6\u9488\u8f6c\u56db\u5206\u4e4b\u4e00\u5708\u3002"
+  },
+  {
+    "videoId": "g1-v032",
+    "sourceTitle": "\u56fe\u5f62\u7ec4\u5408\u89c4\u5f8b",
+    "q": "\u4e00\u4e2a\u5927\u6b63\u65b9\u5f62\u75314\u4e2a\u540c\u6837\u7684\u5c0f\u6b63\u65b9\u5f62\u62fc\u6210\u3002\u6bcf\u884c\u6709\u51e0\u4e2a\u5c0f\u6b63\u65b9\u5f62\uff1f",
+    "opts": [
+      "2\u4e2a",
+      "3\u4e2a",
+      "4\u4e2a"
+    ],
+    "answer": 0,
+    "explain": "4\u4e2a\u5c0f\u6b63\u65b9\u5f62\u6392\u62102\u884c2\u5217\u3002"
+  },
+  {
+    "videoId": "g1-v033",
+    "sourceTitle": "\u7ad6\u5f0f\u7684\u8ba4\u8bc6",
+    "q": "\u5199\u52a0\u51cf\u6cd5\u7ad6\u5f0f\u65f6\uff0c\u4e2a\u4f4d\u5e94\u8be5\u548c\u4ec0\u4e48\u4f4d\u5bf9\u9f50\uff1f",
+    "opts": [
+      "\u4e2a\u4f4d",
+      "\u5341\u4f4d",
+      "\u968f\u4fbf\u4e00\u4f4d"
+    ],
+    "answer": 0,
+    "explain": "\u76f8\u540c\u6570\u4f4d\u5fc5\u987b\u4e0a\u4e0b\u5bf9\u9f50\u3002"
+  },
+  {
+    "videoId": "g1-v034",
+    "sourceTitle": "\u52a0\u6cd5\u7ad6\u5f0f",
+    "q": "\u7528\u7ad6\u5f0f\u8ba1\u7b9727+15\uff0c\u7ed3\u679c\u662f\u591a\u5c11\uff1f",
+    "opts": [
+      "32",
+      "42",
+      "52"
+    ],
+    "answer": 1,
+    "explain": "\u4e2a\u4f4d7+5=12\uff0c\u51992\u8fdb1\uff1b\u5341\u4f4d2+1+1=4\u3002"
+  },
+  {
+    "videoId": "g1-v035",
+    "sourceTitle": "\u51cf\u6cd5\u7ad6\u5f0f",
+    "q": "\u7528\u7ad6\u5f0f\u8ba1\u7b9742-18\uff0c\u7ed3\u679c\u662f\u591a\u5c11\uff1f",
+    "opts": [
+      "24",
+      "26",
+      "34"
+    ],
+    "answer": 0,
+    "explain": "\u4e2a\u4f4d\u4e0d\u591f\u51cf\u5148\u501f1\u4e2a\u5341\uff0c12-8=4\uff0c3-1=2\u3002"
+  },
+  {
+    "videoId": "g1-v036",
+    "sourceTitle": "\u7b80\u5355\u7684\u52a0\u6cd5\u7ad6\u5f0f\u8c1c",
+    "q": "\u25a1+7=15\uff0c\u25a1\u91cc\u5e94\u8be5\u586b\u51e0\uff1f",
+    "opts": [
+      "6",
+      "7",
+      "8"
+    ],
+    "answer": 2,
+    "explain": "15-7=8\u3002"
+  },
+  {
+    "videoId": "g1-v037",
+    "sourceTitle": "\u7b80\u5355\u7684\u51cf\u6cd5\u7ad6\u5f0f\u8c1c",
+    "q": "13-\u25a1=5\uff0c\u25a1\u91cc\u5e94\u8be5\u586b\u51e0\uff1f",
+    "opts": [
+      "7",
+      "8",
+      "9"
+    ],
+    "answer": 1,
+    "explain": "13-5=8\u3002"
+  },
+  {
+    "videoId": "g1-v038",
+    "sourceTitle": "\u51d1\u6574\u6cd5-\u76f8\u540c\u738b\u56fd",
+    "q": "\u8ba1\u7b978+7+2\uff0c\u5148\u628a\u54ea\u4e24\u4e2a\u6570\u76f8\u52a0\u66f4\u65b9\u4fbf\uff1f",
+    "opts": [
+      "8\u548c2",
+      "8\u548c7",
+      "7\u548c2"
+    ],
+    "answer": 0,
+    "explain": "8\u548c2\u80fd\u51d1\u6210\u6574\u534110\u3002"
+  },
+  {
+    "videoId": "g1-v039",
+    "sourceTitle": "\u51d1\u6574\u6cd5-\u4e0d\u540c\u738b\u56fd",
+    "q": "\u8ba1\u7b979+6+1+4\uff0c\u600e\u6837\u51d1\u6574\u6700\u65b9\u4fbf\uff1f",
+    "opts": [
+      "9+1\uff0c6+4",
+      "9+6\uff0c1+4",
+      "9+4\uff0c6+1"
+    ],
+    "answer": 0,
+    "explain": "9+1=10\uff0c6+4=10\uff0c\u4e00\u517120\u3002"
+  },
+  {
+    "videoId": "g1-v040",
+    "sourceTitle": "\u5206\u7ec4\u6cd5",
+    "q": "5\u7ec4\u5c0f\u670b\u53cb\uff0c\u6bcf\u7ec42\u4eba\uff0c\u4e00\u5171\u6709\u591a\u5c11\u4eba\uff1f",
+    "opts": [
+      "7\u4eba",
+      "10\u4eba",
+      "12\u4eba"
+    ],
+    "answer": 1,
+    "explain": "\u628a\u6bcf\u7ec4\u76842\u4eba\u52a05\u6b21\uff0c\u5f97\u523010\u4eba\u3002"
+  },
+  {
+    "videoId": "g1-v041",
+    "sourceTitle": "\u5927\u5c0f\u602a\u7269\u5206\u6790\u6cd5",
+    "q": "8+2\u548c7+4\uff0c\u54ea\u4e2a\u7ed3\u679c\u66f4\u5927\uff1f",
+    "opts": [
+      "8+2",
+      "7+4",
+      "\u4e00\u6837\u5927"
+    ],
+    "answer": 1,
+    "explain": "8+2=10\uff0c7+4=11\uff0c\u6240\u4ee5\u540e\u8005\u66f4\u5927\u3002"
+  },
+  {
+    "videoId": "g1-v042",
+    "sourceTitle": "\u56fe\u6587\u7b97\u5f0f",
+    "q": "\u25cb+\u25cb=8\uff0c\u4e00\u4e2a\u25cb\u8868\u793a\u51e0\uff1f",
+    "opts": [
+      "2",
+      "4",
+      "8"
+    ],
+    "answer": 1,
+    "explain": "\u4e24\u4e2a\u76f8\u540c\u7684\u6570\u76f8\u52a0\u7b49\u4e8e8\uff0c\u6bcf\u4e2a\u662f4\u3002"
+  },
+  {
+    "videoId": "g1-v043",
+    "sourceTitle": "\u52a0\u51cf\u6cd5\u738b\u56fd",
+    "q": "\u54ea\u4e00\u4e2a\u7b97\u5f0f\u7684\u7ed3\u679c\u7b49\u4e8e9\uff1f",
+    "opts": [
+      "5+4",
+      "12-2",
+      "6+2"
+    ],
+    "answer": 0,
+    "explain": "5+4=9\u3002"
+  },
+  {
+    "videoId": "g1-v044",
+    "sourceTitle": "\u51d1\u96f6\u6cd5",
+    "q": "7-3-4\u7684\u7ed3\u679c\u662f\u591a\u5c11\uff1f",
+    "opts": [
+      "0",
+      "1",
+      "8"
+    ],
+    "answer": 0,
+    "explain": "\u5148\u7b977-3=4\uff0c\u518d\u7b974-4=0\u3002"
+  },
+  {
+    "videoId": "g1-v045",
+    "sourceTitle": "\u51d1\u6570\u6cd5",
+    "q": "6\u548c\u54ea\u4e2a\u6570\u80fd\u51d1\u621010\uff1f",
+    "opts": [
+      "3",
+      "4",
+      "5"
+    ],
+    "answer": 1,
+    "explain": "6+4=10\u3002"
+  },
+  {
+    "videoId": "g1-v046",
+    "sourceTitle": "\u7b97\u5f0f\u95ee\u9898",
+    "q": "\u25a1+5=12\uff0c\u25a1\u91cc\u5e94\u586b\u51e0\uff1f",
+    "opts": [
+      "6",
+      "7",
+      "8"
+    ],
+    "answer": 1,
+    "explain": "12-5=7\u3002"
+  },
+  {
+    "videoId": "g1-v047",
+    "sourceTitle": "\u6bd4\u8f83\u5927\u5c0f\uff08\u4e0a\uff09",
+    "q": "12\u548c9\u76f8\u6bd4\uff0c\u54ea\u4e2a\u6570\u5927\uff1f",
+    "opts": [
+      "12",
+      "9",
+      "\u4e00\u6837\u5927"
+    ],
+    "answer": 0,
+    "explain": "12\u6bd49\u591a3\u3002"
+  },
+  {
+    "videoId": "g1-v048",
+    "sourceTitle": "\u6bd4\u8f83\u5927\u5c0f\uff08\u4e0b\uff09",
+    "q": "8+5\u548c7+6\u76f8\u6bd4\uff0c\u7ed3\u679c\u600e\u6837\uff1f",
+    "opts": [
+      "\u524d\u8005\u5927",
+      "\u540e\u8005\u5927",
+      "\u4e00\u6837\u5927"
+    ],
+    "answer": 2,
+    "explain": "\u4e24\u4e2a\u7b97\u5f0f\u7684\u7ed3\u679c\u90fd\u662f13\u3002"
+  },
+  {
+    "videoId": "g1-v049",
+    "sourceTitle": "\u4e00\u5bf9\u4e00\u6bd4\u8f83",
+    "q": "\u6bcf\u4e2a\u5c0f\u670b\u53cb\u52061\u4e2a\u82f9\u679c\uff0c6\u4e2a\u5c0f\u670b\u53cb\u81f3\u5c11\u9700\u8981\u51e0\u4e2a\u82f9\u679c\uff1f",
+    "opts": [
+      "5\u4e2a",
+      "6\u4e2a",
+      "12\u4e2a"
+    ],
+    "answer": 1,
+    "explain": "\u4e00\u4eba\u5bf9\u5e94\u4e00\u4e2a\uff0c6\u4eba\u9700\u89816\u4e2a\u3002"
+  },
+  {
+    "videoId": "g1-v050",
+    "sourceTitle": "\u4e00\u5bf9\u591a\u6bd4\u8f83",
+    "q": "3\u4e2a\u76d2\u5b50\uff0c\u6bcf\u4e2a\u76d2\u5b50\u88c52\u4e2a\u7403\uff0c\u4e00\u5171\u6709\u51e0\u4e2a\u7403\uff1f",
+    "opts": [
+      "5\u4e2a",
+      "6\u4e2a",
+      "8\u4e2a"
+    ],
+    "answer": 1,
+    "explain": "2+2+2=6\u3002"
+  },
+  {
+    "videoId": "g1-v051",
+    "sourceTitle": "\u6bd4\u957f\u77ed",
+    "q": "\u94c5\u7b14\u957f12\u5398\u7c73\uff0c\u6a61\u76ae\u957f5\u5398\u7c73\uff0c\u94c5\u7b14\u6bd4\u6a61\u76ae\u957f\u591a\u5c11\u5398\u7c73\uff1f",
+    "opts": [
+      "7\u5398\u7c73",
+      "12\u5398\u7c73",
+      "17\u5398\u7c73"
+    ],
+    "answer": 0,
+    "explain": "12-5=7\u5398\u7c73\u3002"
+  },
+  {
+    "videoId": "g1-v052",
+    "sourceTitle": "\u6bd4\u8f7b\u91cd",
+    "q": "1\u5343\u514b\u68c9\u82b1\u548c1\u5343\u514b\u94c1\u76f8\u6bd4\uff0c\u8c01\u66f4\u91cd\uff1f",
+    "opts": [
+      "\u68c9\u82b1",
+      "\u94c1",
+      "\u4e00\u6837\u91cd"
+    ],
+    "answer": 2,
+    "explain": "\u5b83\u4eec\u90fd\u662f1\u5343\u514b\uff0c\u6240\u4ee5\u4e00\u6837\u91cd\u3002"
+  },
+  {
+    "videoId": "g1-v053",
+    "sourceTitle": "\u57fa\u6570\u4e0e\u5e8f\u6570",
+    "q": "\u5c0f\u7ea2\u6392\u7b2c5\uff0c\u5979\u524d\u9762\u6709\u51e0\u4e2a\u4eba\uff1f",
+    "opts": [
+      "4\u4eba",
+      "5\u4eba",
+      "6\u4eba"
+    ],
+    "answer": 0,
+    "explain": "\u7b2c5\u8868\u793a\u524d\u9762\u5df2\u67094\u4eba\u3002"
+  },
+  {
+    "videoId": "g1-v054",
+    "sourceTitle": "\u514b\u3001\u5343\u514b\u548c\u5428",
+    "q": "\u4e0b\u9762\u54ea\u79cd\u7269\u54c1\u6700\u9002\u5408\u7528\u201c\u5428\u201d\u4f5c\u5355\u4f4d\uff1f",
+    "opts": [
+      "\u4e00\u652f\u94c5\u7b14",
+      "\u4e00\u888b\u5927\u7c73",
+      "\u4e00\u8f86\u5927\u5361\u8f66"
+    ],
+    "answer": 2,
+    "explain": "\u5927\u5361\u8f66\u5f88\u91cd\uff0c\u9002\u5408\u7528\u5428\u6765\u8ba1\u91cf\u3002"
+  },
+  {
+    "videoId": "g1-v055",
+    "sourceTitle": "\u65a4\u548c\u516c\u65a4",
+    "q": "1\u516c\u65a4\u7b49\u4e8e\u591a\u5c11\u65a4\uff1f",
+    "opts": [
+      "1\u65a4",
+      "2\u65a4",
+      "10\u65a4"
+    ],
+    "answer": 1,
+    "explain": "\u751f\u6d3b\u4e2d1\u516c\u65a4=2\u65a4\u3002"
+  },
+  {
+    "videoId": "g1-v056",
+    "sourceTitle": "\u7ed9\u540e\u5dee\u51e0\u4e2a",
+    "q": "\u54e5\u54e5\u670910\u9897\u7cd6\uff0c\u7ed9\u5f1f\u5f1f2\u9897\u540e\u8fd8\u67098\u9897\uff1b\u5f1f\u5f1f\u539f\u67095\u9897\uff0c\u73b0\u5728\u4e24\u4eba\u76f8\u5dee\u51e0\u9897\uff1f",
+    "opts": [
+      "1\u9897",
+      "2\u9897",
+      "3\u9897"
+    ],
+    "answer": 0,
+    "explain": "\u54e5\u54e58\u9897\uff0c\u5f1f\u5f1f7\u9897\uff0c\u76f8\u5dee1\u9897\u3002"
+  },
+  {
+    "videoId": "g1-v057",
+    "sourceTitle": "\u7ed9\u51e0\u4e2a",
+    "q": "\u5c0f\u660e\u67099\u9897\u7cd6\uff0c\u5c0f\u7ea2\u67095\u9897\u3002\u5c0f\u660e\u7ed9\u5c0f\u7ea2\u51e0\u9897\u540e\u4e24\u4eba\u4e00\u6837\u591a\uff1f",
+    "opts": [
+      "1\u9897",
+      "2\u9897",
+      "4\u9897"
+    ],
+    "answer": 1,
+    "explain": "\u603b\u657014\u9897\uff0c\u5e73\u5747\u6bcf\u4eba7\u9897\uff0c\u5c0f\u660e\u7ed92\u9897\u3002"
+  },
+  {
+    "videoId": "g1-v058",
+    "sourceTitle": "\u5f00\u59cb\u5dee\u51e0\u4e2a",
+    "q": "\u5c0f\u660e\u7ed9\u5c0f\u7ea22\u9897\u7cd6\u540e\u4e24\u4eba\u4e00\u6837\u591a\uff0c\u539f\u6765\u5c0f\u660e\u6bd4\u5c0f\u7ea2\u591a\u51e0\u9897\uff1f",
+    "opts": [
+      "2\u9897",
+      "4\u9897",
+      "6\u9897"
+    ],
+    "answer": 1,
+    "explain": "\u4e00\u8fb9\u5c112\u3001\u4e00\u8fb9\u591a2\uff0c\u539f\u6765\u7684\u5dee\u662f2+2=4\u9897\u3002"
+  },
+  {
+    "videoId": "g1-v059",
+    "sourceTitle": "\u591a\u884c\u4e4b\u95f4\u7684\u79fb\u52a8",
+    "q": "\u7b2c\u4e00\u884c\u67098\u4e2a\u5706\uff0c\u7b2c\u4e8c\u884c\u67094\u4e2a\u3002\u628a\u7b2c\u4e00\u884c\u7684\u51e0\u4e2a\u79fb\u5230\u7b2c\u4e8c\u884c\uff0c\u4e24\u884c\u4e00\u6837\u591a\uff1f",
+    "opts": [
+      "1\u4e2a",
+      "2\u4e2a",
+      "4\u4e2a"
+    ],
+    "answer": 1,
+    "explain": "\u79fb\u52a82\u4e2a\u540e\uff0c\u4e24\u884c\u90fd\u662f6\u4e2a\u3002"
+  },
+  {
+    "videoId": "g1-v060",
+    "sourceTitle": "\u7528\u76f4\u5c3a\u6d4b\u91cf",
+    "q": "\u94c5\u7b14\u4e00\u7aef\u5bf9\u7740\u5c3a\u5b50\u76842\u5398\u7c73\uff0c\u53e6\u4e00\u7aef\u5bf9\u77409\u5398\u7c73\uff0c\u94c5\u7b14\u957f\u591a\u5c11\u5398\u7c73\uff1f",
+    "opts": [
+      "7\u5398\u7c73",
+      "9\u5398\u7c73",
+      "11\u5398\u7c73"
+    ],
+    "answer": 0,
+    "explain": "\u957f\u5ea6\u8981\u7528\u672b\u7aef\u523b\u5ea6\u51cf\u8d77\u70b9\u523b\u5ea6\uff1a9-2=7\u3002"
+  },
+  {
+    "videoId": "g1-v061",
+    "sourceTitle": "\u957f\u5ea6\u5355\u4f4d\u6362\u7b97",
+    "q": "1\u7c73\u7b49\u4e8e\u591a\u5c11\u5398\u7c73\uff1f",
+    "opts": [
+      "10\u5398\u7c73",
+      "100\u5398\u7c73",
+      "1000\u5398\u7c73"
+    ],
+    "answer": 1,
+    "explain": "1\u7c73=100\u5398\u7c73\u3002"
+  },
+  {
+    "videoId": "g1-v062",
+    "sourceTitle": "\u57fa\u672c\u5e94\u7528\u9898\uff08\u4e0a\uff09",
+    "q": "\u6811\u4e0a\u67096\u53ea\u9e1f\uff0c\u53c8\u98de\u67653\u53ea\uff0c\u73b0\u5728\u6709\u51e0\u53ea\uff1f",
+    "opts": [
+      "3\u53ea",
+      "9\u53ea",
+      "18\u53ea"
+    ],
+    "answer": 1,
+    "explain": "\u6c42\u5408\u8d77\u6765\u4e00\u5171\u6709\u591a\u5c11\uff0c\u75286+3=9\u3002"
+  },
+  {
+    "videoId": "g1-v063",
+    "sourceTitle": "\u57fa\u672c\u5e94\u7528\u9898\uff08\u4e2d\uff09",
+    "q": "\u76d2\u91cc\u670912\u652f\u7b14\uff0c\u62ff\u8d705\u652f\uff0c\u8fd8\u5269\u51e0\u652f\uff1f",
+    "opts": [
+      "7\u652f",
+      "8\u652f",
+      "17\u652f"
+    ],
+    "answer": 0,
+    "explain": "\u6c42\u5269\u4e0b\u752812-5=7\u3002"
+  },
+  {
+    "videoId": "g1-v064",
+    "sourceTitle": "\u57fa\u672c\u5e94\u7528\u9898\uff08\u4e0b\uff09",
+    "q": "\u5c0f\u519b\u67099\u672c\u4e66\uff0c\u5c0f\u4e3d\u67096\u672c\uff0c\u5c0f\u519b\u6bd4\u5c0f\u4e3d\u591a\u51e0\u672c\uff1f",
+    "opts": [
+      "3\u672c",
+      "6\u672c",
+      "15\u672c"
+    ],
+    "answer": 0,
+    "explain": "\u6c42\u76f8\u5dee\u591a\u5c11\u75289-6=3\u3002"
+  },
+  {
+    "videoId": "g1-v065",
+    "sourceTitle": "\u6c42\u603b\u957f\u5ea6",
+    "q": "\u4e24\u6839\u7ef3\u5b50\u5206\u522b\u957f4\u7c73\u548c6\u7c73\uff0c\u63a5\u5728\u4e00\u8d77\u4e14\u4e0d\u91cd\u53e0\uff0c\u603b\u957f\u591a\u5c11\u7c73\uff1f",
+    "opts": [
+      "2\u7c73",
+      "10\u7c73",
+      "24\u7c73"
+    ],
+    "answer": 1,
+    "explain": "\u4e0d\u91cd\u53e0\u65f6\u603b\u957f\u5ea6\u662f4+6=10\u7c73\u3002"
+  },
+  {
+    "videoId": "g1-v066",
+    "sourceTitle": "\u6c42\u91cd\u53e0\u957f\u5ea6",
+    "q": "\u4e24\u6839\u6728\u6761\u5206\u522b\u957f7\u5398\u7c73\u548c5\u5398\u7c73\uff0c\u53e0\u653e\u540e\u603b\u957f10\u5398\u7c73\uff0c\u91cd\u53e0\u90e8\u5206\u957f\u51e0\u5398\u7c73\uff1f",
+    "opts": [
+      "2\u5398\u7c73",
+      "3\u5398\u7c73",
+      "12\u5398\u7c73"
+    ],
+    "answer": 0,
+    "explain": "\u91cd\u53e0\u957f\u5ea6=7+5-10=2\u5398\u7c73\u3002"
+  },
+  {
+    "videoId": "g1-v067",
+    "sourceTitle": "\u6c42\u5355\u5757\u6728\u677f\u957f\u5ea6",
+    "q": "\u4e24\u5757\u540c\u6837\u957f\u7684\u6728\u677f\u9996\u5c3e\u76f8\u63a5\uff0c\u603b\u957f12\u7c73\uff0c\u6bcf\u5757\u957f\u591a\u5c11\u7c73\uff1f",
+    "opts": [
+      "5\u7c73",
+      "6\u7c73",
+      "12\u7c73"
+    ],
+    "answer": 1,
+    "explain": "\u4e24\u5757\u4e00\u6837\u957f\uff0c12\u5e73\u5747\u5206\u62102\u4efd\uff0c\u6bcf\u57576\u7c73\u3002"
+  },
+  {
+    "videoId": "g1-v068",
+    "sourceTitle": "\u7acb\u4f53\u56fe\u5f62\u7684\u8ba4\u8bc6",
+    "q": "\u4e0b\u9762\u54ea\u4e00\u4e2a\u662f\u7acb\u4f53\u56fe\u5f62\uff1f",
+    "opts": [
+      "\u5706\u5f62",
+      "\u6b63\u65b9\u5f62",
+      "\u6b63\u65b9\u4f53"
+    ],
+    "answer": 2,
+    "explain": "\u6b63\u65b9\u4f53\u6709\u957f\u3001\u5bbd\u3001\u9ad8\uff0c\u662f\u7acb\u4f53\u56fe\u5f62\u3002"
+  },
+  {
+    "videoId": "g1-v069",
+    "sourceTitle": "\u591a\u89d2\u5ea6\u89c2\u5bdf\u521d\u6b65",
+    "q": "\u89c2\u5bdf\u4e00\u4e2a\u8336\u58f6\uff0c\u4ece\u4e0d\u540c\u65b9\u5411\u770b\u5230\u7684\u6837\u5b50\u4f1a\u600e\u6837\uff1f",
+    "opts": [
+      "\u53ef\u80fd\u4e0d\u540c",
+      "\u4e00\u5b9a\u76f8\u540c",
+      "\u4ec0\u4e48\u4e5f\u770b\u4e0d\u5230"
+    ],
+    "answer": 0,
+    "explain": "\u89c2\u5bdf\u65b9\u5411\u6539\u53d8\uff0c\u770b\u5230\u7684\u5f62\u72b6\u548c\u90e8\u4ef6\u4e5f\u53ef\u80fd\u6539\u53d8\u3002"
+  },
+  {
+    "videoId": "g1-v070",
+    "sourceTitle": "\u89d2\u7684\u521d\u6b65\u8ba4\u8bc6",
+    "q": "\u4e00\u4e2a\u89d2\u7531\u4e00\u4e2a\u9876\u70b9\u548c\u51e0\u6761\u8fb9\u7ec4\u6210\uff1f",
+    "opts": [
+      "1\u6761",
+      "2\u6761",
+      "3\u6761"
+    ],
+    "answer": 1,
+    "explain": "\u89d2\u6709\u4e00\u4e2a\u9876\u70b9\u548c\u4ece\u9876\u70b9\u4f38\u51fa\u7684\u4e24\u6761\u8fb9\u3002"
+  },
+  {
+    "videoId": "g1-v071",
+    "sourceTitle": "\u4e03\u5de7\u677f\u62fc\u56fe",
+    "q": "\u4e03\u5de7\u677f\u4e2d\u4e00\u5171\u6709\u51e0\u4e2a\u4e09\u89d2\u5f62\u677f\uff1f",
+    "opts": [
+      "3\u4e2a",
+      "5\u4e2a",
+      "7\u4e2a"
+    ],
+    "answer": 1,
+    "explain": "\u6807\u51c6\u4e03\u5de7\u677f\u91cc\u67095\u5757\u4e09\u89d2\u5f62\u3002"
+  },
+  {
+    "videoId": "g1-v072",
+    "sourceTitle": "\u627e\u76f8\u5bf9\u9762",
+    "q": "\u6b63\u65b9\u4f53\u4e2d\uff0c\u4e00\u4e2a\u9762\u6709\u51e0\u4e2a\u4e0e\u5b83\u76f8\u5bf9\u7684\u9762\uff1f",
+    "opts": [
+      "1\u4e2a",
+      "2\u4e2a",
+      "4\u4e2a"
+    ],
+    "answer": 0,
+    "explain": "\u6bcf\u4e2a\u9762\u53ea\u6709\u4e00\u4e2a\u4e0d\u76f8\u90bb\u3001\u6b63\u5bf9\u7740\u5b83\u7684\u9762\u3002"
+  },
+  {
+    "videoId": "g1-v073",
+    "sourceTitle": "\u6b63\u65b9\u4f53\u5c55\u5f00\u56fe",
+    "q": "\u6b63\u65b9\u4f53\u7684\u5c55\u5f00\u56fe\u4e00\u5171\u6709\u51e0\u4e2a\u6b63\u65b9\u5f62\u9762\uff1f",
+    "opts": [
+      "4\u4e2a",
+      "6\u4e2a",
+      "8\u4e2a"
+    ],
+    "answer": 1,
+    "explain": "\u6b63\u65b9\u4f53\u67096\u4e2a\u9762\uff0c\u5c55\u5f00\u540e\u4ecd\u662f6\u4e2a\u6b63\u65b9\u5f62\u3002"
+  },
+  {
+    "videoId": "g1-v074",
+    "sourceTitle": "\u62fc\u56fe\u5f62",
+    "q": "\u4e24\u4e2a\u540c\u6837\u7684\u5c0f\u6b63\u65b9\u5f62\u8fb9\u5bf9\u8fb9\u62fc\u8d77\u6765\uff0c\u80fd\u62fc\u6210\u4ec0\u4e48\uff1f",
+    "opts": [
+      "\u957f\u65b9\u5f62",
+      "\u5706\u5f62",
+      "\u4e09\u89d2\u5f62"
+    ],
+    "answer": 0,
+    "explain": "\u4e24\u5757\u6b63\u65b9\u5f62\u6cbf\u6574\u6761\u8fb9\u62fc\u63a5\u4f1a\u7ec4\u6210\u957f\u65b9\u5f62\u3002"
+  },
+  {
+    "videoId": "g1-v075",
+    "sourceTitle": "\u526a\u56fe\u5f62\uff08\u4e0a\uff09",
+    "q": "\u4e00\u5f20\u6b63\u65b9\u5f62\u7eb8\u6cbf\u5bf9\u89d2\u7ebf\u526a\u4e00\u5200\uff0c\u4f1a\u5f97\u5230\u4e24\u4e2a\u4ec0\u4e48\u56fe\u5f62\uff1f",
+    "opts": [
+      "\u4e09\u89d2\u5f62",
+      "\u5706\u5f62",
+      "\u4e94\u8fb9\u5f62"
+    ],
+    "answer": 0,
+    "explain": "\u6b63\u65b9\u5f62\u6cbf\u5bf9\u89d2\u7ebf\u5206\u6210\u4e24\u4e2a\u4e09\u89d2\u5f62\u3002"
+  },
+  {
+    "videoId": "g1-v076",
+    "sourceTitle": "\u526a\u56fe\u5f62\uff08\u4e0b\uff09",
+    "q": "\u4e00\u5f20\u957f\u65b9\u5f62\u7eb8\u5bf9\u6298\u4e00\u6b21\uff0c\u5728\u8fdc\u79bb\u6298\u75d5\u7684\u4f4d\u7f6e\u526a\u51fa\u4e00\u4e2a\u5c0f\u6d1e\u3002\u628a\u7eb8\u5b8c\u5168\u5c55\u5f00\u540e\uff0c\u5c0f\u6d1e\u4f1a\u600e\u6837\u51fa\u73b0\uff1f",
+    "opts": [
+      "\u51fa\u73b0\u4e24\u4e2a\u5173\u4e8e\u6298\u75d5\u5bf9\u79f0\u7684\u5c0f\u6d1e",
+      "\u53ea\u51fa\u73b0\u4e00\u4e2a\u5c0f\u6d1e",
+      "\u5c0f\u6d1e\u4f1a\u6d88\u5931"
+    ],
+    "answer": 0,
+    "explain": "\u7eb8\u5bf9\u6298\u540e\u6709\u4e24\u5c42\uff0c\u5728\u8fdc\u79bb\u6298\u75d5\u5904\u526a\u6d1e\u4f1a\u540c\u65f6\u526a\u7a7f\u4e24\u5c42\uff1b\u5c55\u5f00\u540e\u5f97\u5230\u4e24\u4e2a\u5173\u4e8e\u6298\u75d5\u5bf9\u79f0\u7684\u5c0f\u6d1e\u3002"
+  },
+  {
+    "videoId": "g1-v077",
+    "sourceTitle": "\u751f\u6d3b\u4e2d\u7684\u53ef\u80fd\u6027",
+    "q": "\u592a\u9633\u660e\u5929\u4ece\u4e1c\u65b9\u5347\u8d77\uff0c\u8fd9\u4ef6\u4e8b\u5c5e\u4e8e\u54ea\u4e00\u79cd\uff1f",
+    "opts": [
+      "\u4e00\u5b9a\u53d1\u751f",
+      "\u53ef\u80fd\u53d1\u751f",
+      "\u4e0d\u53ef\u80fd\u53d1\u751f"
+    ],
+    "answer": 0,
+    "explain": "\u6309\u81ea\u7136\u89c4\u5f8b\uff0c\u592a\u9633\u4ece\u4e1c\u65b9\u5347\u8d77\u662f\u786e\u5b9a\u4e8b\u4ef6\u3002"
+  },
+  {
+    "videoId": "g1-v078",
+    "sourceTitle": "\u7b80\u5355\u7684\u6570\u56fe\u5f62",
+    "q": "\u4e00\u4e2a\u5927\u6b63\u65b9\u5f62\u88ab\u4e00\u6761\u7ad6\u7ebf\u548c\u4e00\u6761\u6a2a\u7ebf\u5e73\u5747\u5206\u5f00\uff0c\u4e00\u5171\u6709\u51e0\u4e2a\u5c0f\u6b63\u65b9\u5f62\uff1f",
+    "opts": [
+      "2\u4e2a",
+      "4\u4e2a",
+      "8\u4e2a"
+    ],
+    "answer": 1,
+    "explain": "\u4e24\u884c\u4e24\u5217\uff0c\u4e00\u5171\u67094\u4e2a\u5c0f\u6b63\u65b9\u5f62\u3002"
+  },
+  {
+    "videoId": "g1-v079",
+    "sourceTitle": "\u6570\u5c0f\u6b63\u65b9\u4f53",
+    "q": "\u4e0b\u5c42\u64464\u4e2a\u5c0f\u6b63\u65b9\u4f53\uff0c\u4e0a\u5c42\u518d\u64461\u4e2a\uff0c\u4e00\u5171\u6709\u51e0\u4e2a\uff1f",
+    "opts": [
+      "4\u4e2a",
+      "5\u4e2a",
+      "6\u4e2a"
+    ],
+    "answer": 1,
+    "explain": "4+1=5\u4e2a\u3002"
+  },
+  {
+    "videoId": "g1-v080",
+    "sourceTitle": "\u8865\u5168\u5927\u6b63\u65b9\u4f53",
+    "q": "\u4e00\u4e2a2\u00d72\u00d72\u7684\u5927\u6b63\u65b9\u4f53\u9700\u8981\u51e0\u4e2a\u5c0f\u6b63\u65b9\u4f53\uff1f",
+    "opts": [
+      "4\u4e2a",
+      "6\u4e2a",
+      "8\u4e2a"
+    ],
+    "answer": 2,
+    "explain": "\u6bcf\u5c424\u4e2a\uff0c\u51712\u5c42\uff0c\u6240\u4ee54\u00d72=8\u4e2a\u3002"
+  },
+  {
+    "videoId": "g1-v081",
+    "sourceTitle": "\u6b63\u65b9\u4f53\u6316\u6d1e",
+    "q": "\u4e00\u4e2a\u75318\u4e2a\u5c0f\u6b63\u65b9\u4f53\u7ec4\u6210\u7684\u5927\u6b63\u65b9\u4f53\uff0c\u62ff\u8d701\u4e2a\u89d2\u4e0a\u7684\u5c0f\u6b63\u65b9\u4f53\uff0c\u8fd8\u5269\u51e0\u4e2a\uff1f",
+    "opts": [
+      "6\u4e2a",
+      "7\u4e2a",
+      "8\u4e2a"
+    ],
+    "answer": 1,
+    "explain": "8-1=7\u4e2a\u3002"
+  },
+  {
+    "videoId": "g1-v082",
+    "sourceTitle": "\u5206\u7ed9\u4e24\u4e2a\u4e0d\u540c\u5bf9\u8c61",
+    "q": "\u628a1\u4e2a\u82f9\u679c\u548c1\u4e2a\u68a8\u5206\u522b\u9001\u7ed9\u5c0f\u660e\u3001\u5c0f\u7ea2\uff0c\u6bcf\u4eba1\u4e2a\uff0c\u6709\u51e0\u79cd\u5206\u6cd5\uff1f",
+    "opts": [
+      "1\u79cd",
+      "2\u79cd",
+      "4\u79cd"
+    ],
+    "answer": 1,
+    "explain": "\u82f9\u679c\u7ed9\u5c0f\u660e\u6216\u7ed9\u5c0f\u7ea2\uff0c\u53e6\u4e00\u4e2a\u6c34\u679c\u968f\u4e4b\u7ed9\u53e6\u4e00\u4eba\uff0c\u51712\u79cd\u3002"
+  },
+  {
+    "videoId": "g1-v083",
+    "sourceTitle": "\u5206\u7ed9\u4e24\u4e2a\u76f8\u540c\u5bf9\u8c61",
+    "q": "\u628a\u4e24\u4e2a\u5b8c\u5168\u76f8\u540c\u7684\u7403\u5206\u522b\u653e\u8fdb\u4e24\u4e2a\u4e0d\u540c\u76d2\u5b50\uff0c\u6bcf\u76d21\u4e2a\uff0c\u6709\u51e0\u79cd\u5206\u6cd5\uff1f",
+    "opts": [
+      "1\u79cd",
+      "2\u79cd",
+      "4\u79cd"
+    ],
+    "answer": 0,
+    "explain": "\u7403\u5b8c\u5168\u76f8\u540c\u4e14\u6bcf\u76d21\u4e2a\uff0c\u4ea4\u6362\u7403\u4e0d\u4f1a\u4ea7\u751f\u65b0\u5206\u6cd5\u3002"
+  }
+];

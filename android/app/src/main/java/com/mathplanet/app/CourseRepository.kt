@@ -6,16 +6,23 @@ import org.json.JSONArray
 class CourseRepository(private val context: Context) {
     private val allLessons: List<Lesson> by lazy { loadLessons() }
     private val allQuestions: Map<String, Question> by lazy { loadQuestions() }
+    private val decompositionTasks: List<DecompositionTask> by lazy { loadDecompositionTasks() }
 
     fun lessonById(id: String): Lesson? = allLessons.firstOrNull { it.id == id }
         ?: demoLessons(id.substringAfter('g').substringBefore('-').toIntOrNull() ?: 1).firstOrNull { it.id == id }
 
     fun questionByVideoId(id: String): Question? = allQuestions[id]
+    fun decompositionForDay(index: Int): DecompositionTask? = decompositionTasks.getOrNull(index)
 
     fun planForGrade(grade: Int): List<DayPlan> {
         val uploadedLessons = allLessons.filter { it.grade == grade }
         val gradeLessons = uploadedLessons.ifEmpty { demoLessons(grade) }
-        return gradeLessons.chunked(3).mapIndexed { index, lessons ->
+        val groupedLessons = if (uploadedLessons.isNotEmpty()) {
+            List(30) { day -> gradeLessons.filterIndexed { index, _ -> index * 30 / gradeLessons.size == day } }
+        } else {
+            gradeLessons.chunked(3)
+        }
+        return groupedLessons.mapIndexed { index, lessons ->
             val questions = if (uploadedLessons.isNotEmpty()) {
                 lessons.mapNotNull { allQuestions[it.id] }
             } else {
@@ -36,7 +43,7 @@ class CourseRepository(private val context: Context) {
         )
         val topics = gradeTopics[grade] ?: gradeTopics.getValue(1)
         val stages = listOf("认识方法", "例题拆解", "举一反三")
-        return List(30) { index ->
+        return List(90) { index ->
             val topic = topics[(index / 3) % topics.size]
             Lesson(
                 id = "g$grade-demo-${index + 1}", grade = grade,
@@ -86,6 +93,21 @@ class CourseRepository(private val context: Context) {
                     )
                 )
             }
+        }
+    }
+
+    private fun loadDecompositionTasks(): List<DecompositionTask> {
+        val source = context.assets.open("decomposition.json").bufferedReader().use { it.readText() }
+        val array = JSONArray(source)
+        return List(array.length()) { index ->
+            val item = array.getJSONObject(index)
+            DecompositionTask(
+                day = item.getInt("day"),
+                stageTitle = item.getString("stageTitle"),
+                focus = item.getString("focus"),
+                problem = item.getString("problem"),
+                parentPrompt = item.getString("parentPrompt")
+            )
         }
     }
 

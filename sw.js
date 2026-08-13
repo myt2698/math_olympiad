@@ -1,6 +1,6 @@
-const CACHE_NAME = 'math-planet-shell-v24';
+const CACHE_NAME = 'math-planet-shell-v27';
 const APP_SHELL = [
-  './', './index.html', './styles.css', './app.js', './curriculum.js', './questions.js',
+  './', './index.html', './styles.css', './app.js', './curriculum.js', './questions.js', './decomposition.js',
   './manifest.webmanifest', './icons/icon.svg',
   './icons/icon-192.png', './icons/icon-512.png'
 ];

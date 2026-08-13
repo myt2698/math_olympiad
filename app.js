@@ -13,10 +13,12 @@ const thoughts=['数学不是算得快，而是想得巧。','复杂的问题，
 const uploadedCurriculum = Array.isArray(window.MATH_PLANET_CURRICULUM) ? window.MATH_PLANET_CURRICULUM : [];
 const uploadedQuestions = Array.isArray(window.MATH_PLANET_QUESTIONS) ? window.MATH_PLANET_QUESTIONS : [];
 const questionsByVideo = new Map(uploadedQuestions.map(item => [item.videoId, item]));
+const decompositionPlan = Array.isArray(window.MATH_DECOMPOSITION_PLAN) ? window.MATH_DECOMPOSITION_PLAN : [];
 
 let state = loadState();
 let activeLesson = null;
 let videoCompletionUnlocked = false;
+let selectedPlanDay = null;
 
 const $ = (id) => document.getElementById(id);
 const pad = n => String(n).padStart(2,'0');
@@ -33,22 +35,22 @@ function makePlan(grade){
     videoUrl:item.videoUrl,points:['观察条件','画图分析','举一反三']
   }));
   if(realLessons.length){
-    return realLessons.reduce((days,lesson,index)=>{
-      const day=Math.floor(index/3);
-      if(!days[day]) days[day]={day,lessons:[],quiz:[]};
+    const days=Array.from({length:30},(_,day)=>({day,lessons:[],quiz:[]}));
+    realLessons.forEach((lesson,index)=>{
+      const day=Math.floor(index*30/realLessons.length);
       days[day].lessons.push(lesson);
       const question=questionsByVideo.get(lesson.id);
       if(question) days[day].quiz.push(question);
-      return days;
-    },[]);
+    });
+    return days;
   }
   const list=topics[grade], lessons=[];
-  for(let i=0;i<30;i++){
+  for(let i=0;i<90;i++){
     const topic=list[Math.floor(i/3)%list.length];
     const part=(i%3)+1;
     lessons.push({id:`g${grade}-v${i+1}`,title:`${topic} · ${['认识方法','例题拆解','举一反三'][part-1]}`,topic,duration:[6,7,5,8][i%4],points:['观察条件','画图分析','举一反三'].slice(0,2+(i%2))});
   }
-  return Array.from({length:10},(_,day)=>({day,lessons:lessons.slice(day*3,day*3+3),quiz:makeQuiz(grade,list[day%list.length],day)}));
+  return Array.from({length:30},(_,day)=>({day,lessons:lessons.slice(day*3,day*3+3),quiz:makeQuiz(grade,list[day%list.length],day)}));
 }
 function makeQuiz(grade,topic,day){
   const base=grade*2+day+3;
@@ -75,6 +77,7 @@ function bindEvents(){
   $('lessonVideo').addEventListener('timeupdate',checkVideoProgress);
   $('lessonVideo').addEventListener('error',()=>toast('视频无法播放，请检查文件是否完整'));
   $('lessonQuestion').addEventListener('click',handleLessonQuestionClick);
+  $('dateStrip').addEventListener('click',e=>{const cell=e.target.closest('[data-plan-day]');if(!cell)return;selectedPlanDay=Number(cell.dataset.planDay);render()});
   document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>$(b.dataset.close).close()));
   $('datePrev').addEventListener('click',()=>scrollDates(-1)); $('dateNext').addEventListener('click',()=>scrollDates(1));
 }
@@ -83,29 +86,33 @@ function render(){
   if(!ready)return;
   ensureRewards();
   const now=new Date(), today=isoLocal(now), idx=dayDiff(today,state.startDate), plan=makePlan(state.grade), current=Math.max(0,Math.min(idx,plan.length-1));
-  if(idx<0){renderTasks(plan[0],-1,plan.length);}
-  else if(idx>=plan.length){renderTasks(plan[plan.length-1],plan.length,plan.length);}
-  else{renderTasks(plan[current],idx,plan.length)}
-  renderPlanBoard(plan,idx); $('totalStars').textContent=calculateTotalStars(plan);
+  if(selectedPlanDay===null||!plan[selectedPlanDay])selectedPlanDay=current;
+  renderTasks(plan[selectedPlanDay]);
+  renderPlanBoard(plan,idx,selectedPlanDay); $('totalStars').textContent=calculateTotalStars(plan);
 }
 function ensureRewards(){state.completedLessons=state.completedLessons||{};state.completedQuestions=state.completedQuestions||{};state.completedDays=state.completedDays||{};state.dayRewards=state.dayRewards||{}}
-function renderPlanBoard(plan,idx){
-  const total=plan.length, visibleDay=Math.max(0,Math.min(idx,total-1)), active=plan[visibleDay];
+function renderPlanBoard(plan,idx,selectedDay){
   $('dateStrip').innerHTML=plan.map(day=>{
-    const date=isoLocal(addDays(parseDate(state.startDate),day.day)),d=parseDate(date),done=!!state.completedDays[date],today=day.day===idx,past=day.day<idx&&!done,future=day.day>idx;
-    const stateClass=done?'done':today?'today':past?'makeup':future?'locked':'';
-    return `<div class="date-cell ${stateClass}" data-plan-day="${day.day}"><small>${weekdayNames[d.getDay()]}</small><strong>${d.getDate()}</strong><span>第${day.day+1}天</span><em>${done?'✓':today?'今日':past?'待补':'🔒'}</em></div>`
+    const date=isoLocal(addDays(parseDate(state.startDate),day.day)),d=parseDate(date),done=!!state.completedDays[date],today=day.day===idx,past=day.day<idx&&!done,selected=day.day===selectedDay;
+    const stateClass=[done?'done':today?'today':past?'makeup':'available',selected?'selected':''].join(' ');
+    return `<div class="date-cell ${stateClass}" data-plan-day="${day.day}" role="button" tabindex="0"><small>${weekdayNames[d.getDay()]}</small><strong>${d.getDate()}</strong><span>第${day.day+1}天</span><em>${done?'✓':today?'今日':past?'待完成':'可学习'}</em></div>`
   }).join('');
-  requestAnimationFrame(()=>document.querySelector('.date-cell.today')?.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'}));
+  requestAnimationFrame(()=>document.querySelector('.date-cell.selected')?.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'}));
 }
 function scrollDates(direction){$('dateStrip').scrollBy({left:direction*420,behavior:'smooth'})}
-function renderTasks(dayPlan,idx,totalDays){
-  const beforeStart=idx<0, afterEnd=idx>=totalDays; let done=0;
+function renderTasks(dayPlan){
+  let done=0;
   $('taskList').innerHTML=dayPlan.lessons.map((lesson,i)=>{
     const complete=!!state.completedLessons[lesson.id],answer=state.completedQuestions[lesson.id]; if(complete)done++;
     const status=answer?(answer.correct?'✓ 视频完成 · 题目答对':'✓ 视频完成 · 继续努力'):complete?'✓ 视频完成 · 题目待答':'○ 未完成';
-    return `<article class="task-card ${complete?'done':''}"><div class="task-index">${complete?'✓':pad(i+1)}</div><div class="task-meta"><strong>${lesson.title}</strong><small>▶ ${lesson.duration} 分钟 · ${lesson.points.length} 个知识点</small><span class="lesson-status ${complete?'complete':'pending'}">${status}</span></div><button class="task-action" data-lesson="${lesson.id}" ${beforeStart||afterEnd?'disabled':''}>${complete?'再看':'去学习 →'}</button></article>`
+    return `<article class="task-card ${complete?'done':''}"><div class="task-index">${complete?'✓':pad(i+1)}</div><div class="task-meta"><strong>${lesson.title}</strong><small>▶ ${lesson.duration} 分钟 · ${lesson.points.length} 个知识点</small><span class="lesson-status ${complete?'complete':'pending'}">${status}</span></div><button class="task-action" data-lesson="${lesson.id}">${complete?'再看':'去学习 →'}</button></article>`
   }).join('');
+  renderDecomposition(dayPlan.day);
+}
+function renderDecomposition(day){
+  const task=decompositionPlan[day],card=$('decompositionCard');
+  if(!task){card.hidden=true;return} card.hidden=false;
+  card.innerHTML=`<div class="decomposition-card-head"><span>第 ${task.day} 天</span>${task.stageTitle} · 亲子拆题</div><p class="training-focus">今日重点：${task.focus}</p><h3>${task.problem}</h3><p class="parent-prompt"><b>家长这样问：</b>${task.parentPrompt}</p><small class="no-submit">只听孩子分析步骤，不列式、不计算、不需要提交</small>`;
 }
 function openLesson(id){
   const lesson=makePlan(state.grade).flatMap(d=>d.lessons).find(v=>v.id===id); if(!lesson)return; activeLesson=lesson;

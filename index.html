@@ -12,7 +12,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
-  <link rel="stylesheet" href="styles.css?v=24" />
+  <link rel="stylesheet" href="styles.css?v=27" />
 </head>
 <body>
   <div class="app-shell">
@@ -59,11 +59,12 @@
             <div class="date-strip" id="dateStrip"></div>
             <button class="date-arrow" id="dateNext" aria-label="向后查看日期">›</button>
           </div>
-          <div class="date-legend"><span><i class="done-dot"></i>已完成</span><span><i class="today-dot"></i>今天</span><span><i class="makeup-dot"></i>待补任务</span><span><i class="locked-dot"></i>尚未解锁</span></div>
+          <div class="date-legend"><span><i class="done-dot"></i>已完成</span><span><i class="today-dot"></i>今天</span><span><i class="makeup-dot"></i>待完成</span><span><i class="available-dot"></i>可自由选择</span></div>
         </section>
         <div class="content-grid">
           <section class="today-panel">
             <div id="taskList" class="task-list"></div>
+            <article id="decompositionCard" class="decomposition-card"></article>
           </section>
 
         </div>
@@ -91,9 +92,10 @@
 
 
   <div class="toast" id="toast" role="status"></div>
-  <script src="curriculum.js?v=24"></script>
-  <script src="questions.js?v=24"></script>
-  <script src="app.js?v=24"></script>
+  <script src="curriculum.js?v=27"></script>
+  <script src="questions.js?v=27"></script>
+  <script src="decomposition.js?v=27"></script>
+  <script src="app.js?v=27"></script>
   <script>
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
       addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));

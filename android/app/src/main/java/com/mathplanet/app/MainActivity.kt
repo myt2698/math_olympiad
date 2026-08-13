@@ -17,6 +17,7 @@ class MainActivity : android.app.Activity() {
     private lateinit var store: ProgressStore
     private lateinit var repository: CourseRepository
     private lateinit var root: LinearLayout
+    private var selectedPlanDay: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,9 +111,12 @@ class MainActivity : android.app.Activity() {
         val rawDay = ChronoUnit.DAYS.between(start, LocalDate.now()).toInt()
         val plans = repository.planForGrade(user.grade)
         val activeIndex = rawDay.coerceIn(0, (plans.size - 1).coerceAtLeast(0))
-        val active = plans.getOrNull(activeIndex)
+        val savedDay = selectedPlanDay
+        if (savedDay == null || savedDay !in plans.indices) selectedPlanDay = activeIndex
+        val displayIndex = selectedPlanDay ?: activeIndex
+        val active = plans.getOrNull(displayIndex)
 
-        root.addView(planBoard(user, plans, rawDay))
+        root.addView(planBoard(user, plans, rawDay, displayIndex))
         root.addView(starWallet(user, plans))
 
         if (active == null) {
@@ -120,7 +124,8 @@ class MainActivity : android.app.Activity() {
             return
         }
 
-        active.lessons.forEachIndexed { index, lesson -> root.addView(lessonCard(lesson, index, rawDay in plans.indices)) }
+        active.lessons.forEachIndexed { index, lesson -> root.addView(lessonCard(lesson, index, true)) }
+        repository.decompositionForDay(active.index)?.let { root.addView(decompositionCard(it)) }
     }
 
     private fun starWallet(user: UserPlan, plans: List<DayPlan>): View {
@@ -140,7 +145,7 @@ class MainActivity : android.app.Activity() {
         }
     }
 
-    private fun planBoard(user: UserPlan, plans: List<DayPlan>, rawDay: Int): View {
+    private fun planBoard(user: UserPlan, plans: List<DayPlan>, rawDay: Int, selectedDay: Int): View {
         val start = LocalDate.parse(user.startDate)
         val card = verticalCard().apply {
             margin(top = 22)
@@ -152,15 +157,17 @@ class MainActivity : android.app.Activity() {
             val done = store.dayScore(date) != null
             val today = day.index == rawDay
             val past = day.index < rawDay && !done
-            val background = when { done -> 0xFFF0FBF5.toInt(); today -> Ui.PURPLE; past -> 0xFFFFF7E7.toInt(); else -> 0xFFF5F4F8.toInt() }
-            val color = when { done -> Ui.GREEN; today -> Color.WHITE; past -> 0xFFAA6F0C.toInt(); else -> 0xFF9997A4.toInt() }
-            val status = when { done -> "✓"; today -> "今日"; past -> "待补"; else -> "🔒" }
+            val selected = day.index == selectedDay
+            val background = when { selected -> Ui.PURPLE; done -> 0xFFF0FBF5.toInt(); today -> 0xFFF0EFFF.toInt(); past -> 0xFFFFF7E7.toInt(); else -> 0xFFF5F4F8.toInt() }
+            val color = when { selected -> Color.WHITE; done -> Ui.GREEN; today -> Ui.PURPLE; past -> 0xFFAA6F0C.toInt(); else -> 0xFF777687.toInt() }
+            val status = when { done -> "✓"; today -> "今日"; past -> "待完成"; else -> "可学习" }
             val cell = LinearLayout(this).apply {
                 orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER
                 this.background = Ui.rounded(background, 12, this@MainActivity)
                 addView(Ui.text(this@MainActivity, weekday(date), 9f, color).apply { gravity = Gravity.CENTER })
                 addView(Ui.text(this@MainActivity, date.dayOfMonth.toString(), 19f, color, true).apply { gravity = Gravity.CENTER })
                 addView(Ui.text(this@MainActivity, "第${day.index + 1}天 · $status", 8f, color).apply { gravity = Gravity.CENTER })
+                setOnClickListener { selectedPlanDay = day.index; render() }
             }
             dates.addView(cell, LayoutParams(dp(68), dp(88)).apply { marginEnd = dp(7) })
         }
@@ -196,6 +203,18 @@ class MainActivity : android.app.Activity() {
         row.alpha = if (enabled) 1f else .55f
         if (enabled) row.setOnClickListener { startActivity(Intent(this, LessonActivity::class.java).putExtra("lesson_id", lesson.id)) }
         return row
+    }
+
+    private fun decompositionCard(task: DecompositionTask): View {
+        return verticalCard(0xFFFFF9E9.toInt()).apply {
+            margin(top = 6)
+            background = Ui.rounded(0xFFFFF9E9.toInt(), 19, this@MainActivity, 0xFFF0DDA2.toInt())
+            addView(Ui.text(this@MainActivity, "第 ${task.day} 天 · ${task.stageTitle} · 亲子拆题", 11f, 0xFF9B6A10.toInt(), true))
+            addView(Ui.text(this@MainActivity, "今日重点：${task.focus}", 11f, 0xFFA06B12.toInt(), true).apply { margin(top = 12, bottom = 8) })
+            addView(Ui.text(this@MainActivity, task.problem, 17f, Ui.INK, true))
+            addView(Ui.text(this@MainActivity, "家长这样问：${task.parentPrompt}", 12f, 0xFF756444.toInt()).apply { margin(top = 14, bottom = 8) })
+            addView(Ui.text(this@MainActivity, "只听孩子分析步骤，不列式、不计算、不需要提交", 10f, 0xFFA38D61.toInt()))
+        }
     }
 
     private fun verticalCard(color: Int = Color.WHITE) = LinearLayout(this).apply {

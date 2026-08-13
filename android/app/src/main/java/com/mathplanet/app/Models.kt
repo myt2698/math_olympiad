@@ -24,6 +24,14 @@ data class DayPlan(
     val questions: List<Question>
 )
 
+data class DecompositionTask(
+    val day: Int,
+    val stageTitle: String,
+    val focus: String,
+    val problem: String,
+    val parentPrompt: String
+)
+
 data class UserPlan(
     val childName: String,
     val grade: Int,

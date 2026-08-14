@@ -21,8 +21,8 @@ class LessonActivity : android.app.Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.statusBarColor = Ui.CREAM
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        window.statusBarColor = Ui.PURPLE
+        window.decorView.systemUiVisibility = 0
         store = ProgressStore(this)
         val lessonId = intent.getStringExtra("lesson_id") ?: return finish()
         val repository = CourseRepository(this)
@@ -37,7 +37,7 @@ class LessonActivity : android.app.Activity() {
         val scroll = ScrollView(this).apply { addView(root) }
         setContentView(scroll)
 
-        val back = Ui.text(this, "←  返回今日计划", 13f, Ui.PURPLE, true).apply { setPadding(0, dp(8), 0, dp(18)); setOnClickListener { finish() } }
+        val back = Ui.text(this, "返回挑战地图", 13f, Ui.PURPLE, true).apply { setPadding(0, dp(8), 0, dp(18)); setOnClickListener { finish() } }
         root.addView(back)
         root.addView(Ui.text(this, "${lesson.grade} 年级 · 思维训练", 11f, Ui.PURPLE, true))
         root.addView(Ui.text(this, lesson.title, 28f, Ui.INK, true).apply { margin(top = 8, bottom = 10) })
@@ -54,7 +54,7 @@ class LessonActivity : android.app.Activity() {
 
         val questionBox = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            background = Ui.rounded(Color.WHITE, 17, this@LessonActivity, 0xFFE5E3EB.toInt())
+            background = Ui.rounded(Color.WHITE, 17, this@LessonActivity, 0xFFD7E7F2.toInt())
             setPadding(dp(18), dp(18), dp(18), dp(18)); margin(top = 4)
         }
         root.addView(questionBox, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
@@ -90,13 +90,13 @@ class LessonActivity : android.app.Activity() {
                 questionBox.addView(Ui.text(this, "🔒 看完视频后，这道题会在这里解锁", 13f, Ui.MUTED, true).apply { gravity = Gravity.CENTER })
                 return
             }
-            questionBox.addView(Ui.text(this, "视频后的思维小题", 11f, Ui.PURPLE, true))
+            questionBox.addView(Ui.text(this, "视频后的思维挑战", 11f, 0xFFFF806F.toInt(), true))
             questionBox.addView(Ui.text(this, question.title, 18f, Ui.INK, true).apply { margin(top = 9, bottom = 13) })
             val alreadyCorrect = store.isQuestionCorrect(lesson.id)
             question.options.forEachIndexed { index, option ->
                 val button = Button(this).apply {
                     text = "${'A' + index}.  $option"; isAllCaps = false; gravity = Gravity.START or Gravity.CENTER_VERTICAL
-                    setTextColor(Ui.INK); background = Ui.rounded(Color.WHITE, 13, this@LessonActivity, 0xFFE1DFE8.toInt())
+                    setTextColor(Ui.INK); background = Ui.rounded(0xFFF4FAFF.toInt(), 13, this@LessonActivity, Ui.PURPLE)
                     setOnClickListener {
                         val correct = index == question.answerIndex
                         store.saveQuestionAnswer(lesson.id, correct)

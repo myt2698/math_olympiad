@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#5b5bd6" />
+  <meta name="theme-color" content="#2b78b8" />
   <meta name="description" content="面向一至六年级孩子的每日奥数学习计划" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -12,27 +12,27 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
-  <link rel="stylesheet" href="styles.css?v=27" />
+  <link rel="stylesheet" href="styles.css?v=42" />
 </head>
 <body>
   <div class="app-shell">
     <main>
       <section id="setupView" class="setup-view" hidden>
         <div class="setup-copy">
-          <span class="eyebrow">开启一段思维旅程</span>
-          <h1>把奥数，变成每天<br><em>20 分钟</em>的小期待</h1>
-          <p>每天 2–3 个短视频，再做 3 道小题。轻松坚持，不给孩子增加负担。</p>
+          <img class="setup-logo" src="icons/icon.svg" alt="" />
+          <span class="eyebrow">40 DAYS · THINKING QUEST</span>
+          <h1>准备好了吗？<br>开启你的<em>思维挑战</em></h1>
+          <p>40 天循序学习，每天 2–3 个短视频、对应小题和少量复习。轻松坚持，不给孩子增加负担。</p>
           <div class="setup-benefits">
-            <div><b>15</b><span>分钟视频</span></div>
-            <div><b>3</b><span>道趣味练习</span></div>
-            <div><b>1</b><span>次每日打卡</span></div>
+            <div><b>40</b><span>天挑战地图</span></div>
+            <div><b>4</b><span>次科学复习</span></div>
+            <div><b>60</b><span>道拆题训练</span></div>
           </div>
         </div>
 
         <form class="setup-card" id="setupForm">
-          <div class="planet planet-a">＋</div><div class="planet planet-b">×</div>
           <span class="step-label">家长设置 · 只需一次</span>
-          <h2>制定学习计划</h2>
+          <h2>创建挑战档案</h2>
           <label>孩子的名字
             <input id="childName" name="childName" maxlength="8" placeholder="例如：小宇" required />
           </label>
@@ -46,24 +46,35 @@
           <label>计划开始日期
             <input id="startDate" name="startDate" type="date" required />
           </label>
-          <div class="lock-note"><span>🔒</span><p><strong>开始后日期将锁定</strong><br>这样每天的内容和学习记录才不会乱哦</p></div>
-          <button class="primary-button" type="submit">开始思维之旅 <span>→</span></button>
+          <div class="lock-note"><b>日期锁定</b><p><strong>开始后日期将不能修改</strong><br>这样挑战地图和学习记录才不会乱。</p></div>
+          <button class="primary-button" type="submit">开启 40 天挑战</button>
         </form>
       </section>
 
       <section id="dashboardView" class="dashboard" hidden>
         <section class="plan-board" id="planBoard">
-          <div class="star-wallet"><span>★</span><div><small>我的思维星星</small><strong><b id="totalStars">0</b> 颗</strong></div></div>
+          <div class="challenge-hero">
+            <div class="challenge-copy">
+              <span>40 DAYS · THINKING QUEST</span>
+              <h1>思维挑战地图</h1>
+              <p>每完成一次思考，你的大脑就升级一次。</p>
+            </div>
+            <div class="challenge-side">
+              <img src="icons/icon.svg" alt="" />
+              <div class="star-wallet"><small>我的思维星星</small><strong><b id="totalStars">0</b> 颗</strong></div>
+            </div>
+          </div>
           <div class="date-strip-wrap">
             <button class="date-arrow" id="datePrev" aria-label="向前查看日期">‹</button>
             <div class="date-strip" id="dateStrip"></div>
             <button class="date-arrow" id="dateNext" aria-label="向后查看日期">›</button>
           </div>
-          <div class="date-legend"><span><i class="done-dot"></i>已完成</span><span><i class="today-dot"></i>今天</span><span><i class="makeup-dot"></i>待完成</span><span><i class="available-dot"></i>可自由选择</span></div>
         </section>
         <div class="content-grid">
           <section class="today-panel">
+            <div class="mission-heading"><div><span>NEW CHALLENGE</span><h2>新知关卡</h2></div><p>看视频，破解思路，完成对应小题</p></div>
             <div id="taskList" class="task-list"></div>
+            <article id="reviewCard" class="review-card"></article>
             <article id="decompositionCard" class="decomposition-card"></article>
           </section>
 
@@ -92,10 +103,10 @@
 
 
   <div class="toast" id="toast" role="status"></div>
-  <script src="curriculum.js?v=27"></script>
-  <script src="questions.js?v=27"></script>
-  <script src="decomposition.js?v=27"></script>
-  <script src="app.js?v=27"></script>
+  <script src="curriculum.js?v=42"></script>
+  <script src="questions.js?v=42"></script>
+  <script src="decomposition.js?v=42"></script>
+  <script src="app.js?v=42"></script>
   <script>
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
       addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));

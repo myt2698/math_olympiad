@@ -21,12 +21,24 @@ data class Question(
 data class DayPlan(
     val index: Int,
     val lessons: List<Lesson>,
-    val questions: List<Question>
+    val questions: List<Question>,
+    val reviews: List<ReviewItem>
+)
+
+data class ReviewItem(
+    val lesson: Lesson,
+    val gapDays: Int,
+    val label: String
 )
 
 data class DecompositionTask(
     val day: Int,
     val stageTitle: String,
+    val exercises: List<DecompositionExercise>
+)
+
+data class DecompositionExercise(
+    val label: String,
     val focus: String,
     val problem: String,
     val parentPrompt: String

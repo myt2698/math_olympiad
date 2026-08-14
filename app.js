@@ -1,4 +1,11 @@
 const APP_KEY = 'mathPlanetStateV1';
+const PLAN_DAYS = 40;
+const REVIEW_GAPS = [
+  {days:1,label:'隔天回顾'},
+  {days:3,label:'三天巩固'},
+  {days:7,label:'一周复习'},
+  {days:14,label:'两周唤醒'}
+];
 const gradeNames = ['','一年级','二年级','三年级','四年级','五年级','六年级'];
 const weekdayNames = ['日','一','二','三','四','五','六'];
 const topics = {
@@ -29,20 +36,30 @@ const dayDiff = (a,b) => Math.floor((parseDate(a)-parseDate(b))/86400000);
 
 function loadState(){ try{return JSON.parse(localStorage.getItem(APP_KEY))||null}catch{return null} }
 function saveState(){ localStorage.setItem(APP_KEY,JSON.stringify(state)); }
+function addReviewSchedule(days){
+  days.forEach(day=>{
+    day.reviews=REVIEW_GAPS.map((rule,index)=>{
+      const source=days[day.day-rule.days];
+      if(!source?.lessons.length)return null;
+      return {lesson:source.lessons[(day.day+index)%source.lessons.length],gapDays:rule.days,label:rule.label};
+    }).filter(Boolean);
+  });
+  return days;
+}
 function makePlan(grade){
   const realLessons=uploadedCurriculum.filter(item=>item.grade===grade).map(item=>({
     id:item.id,title:item.title,topic:item.topic,duration:item.durationMinutes||6,
     videoUrl:item.videoUrl,points:['观察条件','画图分析','举一反三']
   }));
   if(realLessons.length){
-    const days=Array.from({length:30},(_,day)=>({day,lessons:[],quiz:[]}));
+    const days=Array.from({length:PLAN_DAYS},(_,day)=>({day,lessons:[],quiz:[],reviews:[]}));
     realLessons.forEach((lesson,index)=>{
-      const day=Math.floor(index*30/realLessons.length);
+      const day=Math.floor(index*PLAN_DAYS/realLessons.length);
       days[day].lessons.push(lesson);
       const question=questionsByVideo.get(lesson.id);
       if(question) days[day].quiz.push(question);
     });
-    return days;
+    return addReviewSchedule(days);
   }
   const list=topics[grade], lessons=[];
   for(let i=0;i<90;i++){
@@ -50,7 +67,9 @@ function makePlan(grade){
     const part=(i%3)+1;
     lessons.push({id:`g${grade}-v${i+1}`,title:`${topic} · ${['认识方法','例题拆解','举一反三'][part-1]}`,topic,duration:[6,7,5,8][i%4],points:['观察条件','画图分析','举一反三'].slice(0,2+(i%2))});
   }
-  return Array.from({length:30},(_,day)=>({day,lessons:lessons.slice(day*3,day*3+3),quiz:makeQuiz(grade,list[day%list.length],day)}));
+  const days=Array.from({length:PLAN_DAYS},(_,day)=>({day,lessons:[],quiz:makeQuiz(grade,list[day%list.length],day),reviews:[]}));
+  lessons.forEach((lesson,index)=>days[Math.floor(index*PLAN_DAYS/lessons.length)].lessons.push(lesson));
+  return addReviewSchedule(days);
 }
 function makeQuiz(grade,topic,day){
   const base=grade*2+day+3;
@@ -72,6 +91,7 @@ function bindEvents(){
     saveState(); render(); toast('计划已创建，开始日期已锁定 🔒');
   });
   $('taskList').addEventListener('click',e=>{const b=e.target.closest('[data-lesson]');if(b)openLesson(b.dataset.lesson)});
+  $('reviewCard').addEventListener('click',e=>{const b=e.target.closest('[data-review-lesson]');if(b)openLesson(b.dataset.reviewLesson)});
   $('lessonVideo').addEventListener('play',()=>$('videoPlayerWrap').classList.add('started'));
   $('lessonVideo').addEventListener('ended',completeVideoPlayback);
   $('lessonVideo').addEventListener('timeupdate',checkVideoProgress);
@@ -95,24 +115,29 @@ function renderPlanBoard(plan,idx,selectedDay){
   $('dateStrip').innerHTML=plan.map(day=>{
     const date=isoLocal(addDays(parseDate(state.startDate),day.day)),d=parseDate(date),done=!!state.completedDays[date],today=day.day===idx,past=day.day<idx&&!done,selected=day.day===selectedDay;
     const stateClass=[done?'done':today?'today':past?'makeup':'available',selected?'selected':''].join(' ');
-    return `<div class="date-cell ${stateClass}" data-plan-day="${day.day}" role="button" tabindex="0"><small>${weekdayNames[d.getDay()]}</small><strong>${d.getDate()}</strong><span>第${day.day+1}天</span><em>${done?'✓':today?'今日':past?'待完成':'可学习'}</em></div>`
+    const visibleStatus=done?'✓':today?'今日':'';
+    return `<div class="date-cell ${stateClass}" data-plan-day="${day.day}" role="button" tabindex="0" aria-label="${date}${done?'，已完成':today?'，今日':''}"><small>${weekdayNames[d.getDay()]}</small><strong>${d.getDate()}</strong>${visibleStatus?`<em>${visibleStatus}</em>`:''}</div>`
   }).join('');
   requestAnimationFrame(()=>document.querySelector('.date-cell.selected')?.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'}));
 }
 function scrollDates(direction){$('dateStrip').scrollBy({left:direction*420,behavior:'smooth'})}
 function renderTasks(dayPlan){
-  let done=0;
   $('taskList').innerHTML=dayPlan.lessons.map((lesson,i)=>{
-    const complete=!!state.completedLessons[lesson.id],answer=state.completedQuestions[lesson.id]; if(complete)done++;
-    const status=answer?(answer.correct?'✓ 视频完成 · 题目答对':'✓ 视频完成 · 继续努力'):complete?'✓ 视频完成 · 题目待答':'○ 未完成';
-    return `<article class="task-card ${complete?'done':''}"><div class="task-index">${complete?'✓':pad(i+1)}</div><div class="task-meta"><strong>${lesson.title}</strong><small>▶ ${lesson.duration} 分钟 · ${lesson.points.length} 个知识点</small><span class="lesson-status ${complete?'complete':'pending'}">${status}</span></div><button class="task-action" data-lesson="${lesson.id}">${complete?'再看':'去学习 →'}</button></article>`
+    const complete=!!state.completedLessons[lesson.id];
+    return `<article class="task-card ${complete?'done':''}"><div class="task-index">${complete?'✓':pad(i+1)}</div><div class="task-meta"><strong>${lesson.title}</strong></div><button class="task-action" data-lesson="${lesson.id}">${complete?'再挑战':'开始挑战'}</button></article>`
   }).join('');
+  renderReviews(dayPlan);
   renderDecomposition(dayPlan.day);
+}
+function renderReviews(dayPlan){
+  const card=$('reviewCard'),reviews=dayPlan.reviews||[];
+  card.innerHTML=`<div class="review-card-head"><span>复习站</span><div><strong>记忆能量补给</strong><small>先在脑中回想，记不清时再打开视频</small></div></div>${reviews.length?`<div class="review-list">${reviews.map(item=>`<button class="review-item" data-review-lesson="${item.lesson.id}"><b>${item.label}</b><span>${item.lesson.title}</span><em>回顾一下</em></button>`).join('')}</div>`:'<p class="review-empty">第一天先收集新知识，明天开启第一次记忆补给。</p>'}`;
 }
 function renderDecomposition(day){
   const task=decompositionPlan[day],card=$('decompositionCard');
   if(!task){card.hidden=true;return} card.hidden=false;
-  card.innerHTML=`<div class="decomposition-card-head"><span>第 ${task.day} 天</span>${task.stageTitle} · 亲子拆题</div><p class="training-focus">今日重点：${task.focus}</p><h3>${task.problem}</h3><p class="parent-prompt"><b>家长这样问：</b>${task.parentPrompt}</p><small class="no-submit">只听孩子分析步骤，不列式、不计算、不需要提交</small>`;
+  const exercises=Array.isArray(task.exercises)?task.exercises:[{label:'拆题 1',focus:task.focus,problem:task.problem,parentPrompt:task.parentPrompt}];
+  card.innerHTML=`<div class="decomposition-card-head"><div><span>THINKING BOSS</span><strong>思维挑战关</strong></div><em>第 ${task.day} 天 · ${task.stageTitle}</em></div><div class="decomposition-exercises">${exercises.map((exercise,index)=>`<section class="decomposition-exercise"><div class="exercise-label">${exercise.label||`拆题 ${index+1}`}</div><p class="training-focus">挑战能力：${exercise.focus}</p><h3>${exercise.problem}</h3><p class="parent-prompt"><b>陪练提示：</b>${exercise.parentPrompt}</p></section>`).join('')}</div><small class="no-submit">这一关只需要说出思路，不列式、不计算</small>`;
 }
 function openLesson(id){
   const lesson=makePlan(state.grade).flatMap(d=>d.lessons).find(v=>v.id===id); if(!lesson)return; activeLesson=lesson;
@@ -151,7 +176,7 @@ function submitLessonAnswer(selected){
   const gained=Math.max(0,dayRewardStars(date,dayPlan)-previous)+awardNewMilestones(plan);saveState();renderLessonQuestion();render();
   toast(correct?`答对啦！${gained?`获得 ${gained} 颗星 ✦`:'继续保持 ✦'}`:'别灰心，看看解析再试一次 💪');
 }
-function dayRewardStars(date,dayPlan){const r=state.dayRewards?.[date]||{},videos=dayPlan.lessons.filter(x=>state.completedLessons[x.id]).length,pairs=Math.min(videos,r.answered||0);return (pairs>=dayPlan.lessons.length?5:pairs>=2?3:pairs>=1?1:0)+(r.perfect?1:0)}
+function dayRewardStars(date,dayPlan){const r=state.dayRewards?.[date]||{},videos=dayPlan.lessons.filter(x=>state.completedLessons[x.id]).length,pairs=Math.min(videos,r.answered||0);return (pairs>=3?5:pairs>=2?3:pairs>=1?1:0)+(r.perfect?1:0)}
 function milestoneDays(total){return [...new Set([5,10,20,25,total].filter(n=>n>0&&n<=total))]}
 function completedFromStart(plan){let count=0;for(const day of plan){const date=isoLocal(addDays(parseDate(state.startDate),day.day));if(!state.completedDays[date])break;count++}return count}
 function awardNewMilestones(plan){let gained=0;state.milestones=state.milestones||{};const completed=completedFromStart(plan);for(const day of milestoneDays(plan.length)){if(completed>=day&&!state.milestones[day]){state.milestones[day]=true;gained+=5}}return gained}

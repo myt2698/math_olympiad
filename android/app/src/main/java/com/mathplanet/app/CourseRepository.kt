@@ -4,6 +4,11 @@ import android.content.Context
 import org.json.JSONArray
 
 class CourseRepository(private val context: Context) {
+    companion object {
+        const val PLAN_DAYS = 40
+        private val REVIEW_GAPS = listOf(1 to "隔天回顾", 3 to "三天巩固", 7 to "一周复习", 14 to "两周唤醒")
+    }
+
     private val allLessons: List<Lesson> by lazy { loadLessons() }
     private val allQuestions: Map<String, Question> by lazy { loadQuestions() }
     private val decompositionTasks: List<DecompositionTask> by lazy { loadDecompositionTasks() }
@@ -18,9 +23,9 @@ class CourseRepository(private val context: Context) {
         val uploadedLessons = allLessons.filter { it.grade == grade }
         val gradeLessons = uploadedLessons.ifEmpty { demoLessons(grade) }
         val groupedLessons = if (uploadedLessons.isNotEmpty()) {
-            List(30) { day -> gradeLessons.filterIndexed { index, _ -> index * 30 / gradeLessons.size == day } }
+            List(PLAN_DAYS) { day -> gradeLessons.filterIndexed { index, _ -> index * PLAN_DAYS / gradeLessons.size == day } }
         } else {
-            gradeLessons.chunked(3)
+            List(PLAN_DAYS) { day -> gradeLessons.filterIndexed { index, _ -> index * PLAN_DAYS / gradeLessons.size == day } }
         }
         return groupedLessons.mapIndexed { index, lessons ->
             val questions = if (uploadedLessons.isNotEmpty()) {
@@ -28,7 +33,12 @@ class CourseRepository(private val context: Context) {
             } else {
                 questionsFor(grade, lessons.firstOrNull()?.topic ?: "思维训练", index)
             }
-            DayPlan(index, lessons, questions)
+            val reviews = REVIEW_GAPS.mapIndexedNotNull { reviewIndex, (gapDays, label) ->
+                groupedLessons.getOrNull(index - gapDays)?.takeIf { it.isNotEmpty() }?.let { source ->
+                    ReviewItem(source[(index + reviewIndex) % source.size], gapDays, label)
+                }
+            }
+            DayPlan(index, lessons, questions, reviews)
         }
     }
 
@@ -104,9 +114,18 @@ class CourseRepository(private val context: Context) {
             DecompositionTask(
                 day = item.getInt("day"),
                 stageTitle = item.getString("stageTitle"),
-                focus = item.getString("focus"),
-                problem = item.getString("problem"),
-                parentPrompt = item.getString("parentPrompt")
+                exercises = item.getJSONArray("exercises").let { exercises ->
+                    List(exercises.length()) { exerciseIndex ->
+                        exercises.getJSONObject(exerciseIndex).let { exercise ->
+                            DecompositionExercise(
+                                label = exercise.getString("label"),
+                                focus = exercise.getString("focus"),
+                                problem = exercise.getString("problem"),
+                                parentPrompt = exercise.getString("parentPrompt")
+                            )
+                        }
+                    }
+                }
             )
         }
     }

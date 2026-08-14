@@ -12,7 +12,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
-  <link rel="stylesheet" href="styles.css?v=42" />
+  <link rel="stylesheet" href="styles.css?v=44" />
 </head>
 <body>
   <div class="app-shell">
@@ -46,7 +46,7 @@
           <label>计划开始日期
             <input id="startDate" name="startDate" type="date" required />
           </label>
-          <div class="lock-note"><b>日期锁定</b><p><strong>开始后日期将不能修改</strong><br>这样挑战地图和学习记录才不会乱。</p></div>
+          <div class="lock-note"><b>日期设置</b><p><strong>创建后仍可从主页右上角调整第一天日期</strong><br>已有学习记录会跟随对应天数一起迁移。</p></div>
           <button class="primary-button" type="submit">开启 40 天挑战</button>
         </form>
       </section>
@@ -61,7 +61,10 @@
             </div>
             <div class="challenge-side">
               <img src="icons/icon.svg" alt="" />
-              <div class="star-wallet"><small>我的思维星星</small><strong><b id="totalStars">0</b> 颗</strong></div>
+              <div class="challenge-actions">
+                <button class="date-settings-button" id="openStartDateSettings" type="button">设置第一天日期</button>
+                <div class="star-wallet"><small>我的思维星星</small><strong><b id="totalStars">0</b> 颗</strong></div>
+              </div>
             </div>
           </div>
           <div class="date-strip-wrap">
@@ -101,12 +104,25 @@
     </div>
   </dialog>
 
+  <dialog id="startDateDialog" class="modal date-settings-modal">
+    <button class="modal-close" data-close="startDateDialog" aria-label="关闭">×</button>
+    <form id="startDateSettingsForm" class="date-settings-form">
+      <span class="step-label">学习计划设置</span>
+      <h2>设置第一天日期</h2>
+      <p>调整后，原有的每日完成记录和星星奖励会按对应天数迁移。</p>
+      <label>第一天日期
+        <input id="settingsStartDate" name="settingsStartDate" type="date" required />
+      </label>
+      <button class="primary-button" type="submit">保存日期</button>
+    </form>
+  </dialog>
+
 
   <div class="toast" id="toast" role="status"></div>
-  <script src="curriculum.js?v=42"></script>
-  <script src="questions.js?v=42"></script>
-  <script src="decomposition.js?v=42"></script>
-  <script src="app.js?v=42"></script>
+  <script src="curriculum.js?v=44"></script>
+  <script src="questions.js?v=44"></script>
+  <script src="decomposition.js?v=44"></script>
+  <script src="app.js?v=44"></script>
   <script>
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
       addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));

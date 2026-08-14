@@ -84,20 +84,20 @@ const exercisePool = firstExercises.flatMap((item, index) => [
   { focus: secondExercises[index][0], problem: secondExercises[index][1], parentPrompt: secondExercises[index][2] }
 ]);
 const stageTitles = ['看清关系', '寻找隐藏问题', '理清多步顺序', '筛选与倒推', '综合挑战'];
-const tasks = Array.from({ length: 40 }, (_, dayIndex) => {
+const tasks = Array.from({ length: 30 }, (_, dayIndex) => {
   const exercises = exercisePool
-    .filter((_, exerciseIndex) => Math.floor(exerciseIndex * 40 / exercisePool.length) === dayIndex)
+    .slice(dayIndex * 2, dayIndex * 2 + 2)
     .map((exercise, exerciseIndex) => ({ ...exercise, label: `拆题 ${exerciseIndex + 1}` }));
   return {
     day: dayIndex + 1,
-    stage: Math.floor(dayIndex / 8) + 1,
-    stageTitle: stageTitles[Math.floor(dayIndex / 8)],
+    stage: Math.floor(dayIndex / 6) + 1,
+    stageTitle: stageTitles[Math.floor(dayIndex / 6)],
     exercises
   };
 });
 
-if (tasks.some(task => task.exercises.length < 1 || task.exercises.length > 2)) {
-  throw new Error('Each day must contain one or two decomposition exercises.');
+if (tasks.some(task => task.exercises.length !== 2)) {
+  throw new Error('Each day must contain exactly two decomposition exercises.');
 }
 
 const ascii = value => JSON.stringify(value, null, 2).replace(/[\u007f-\uffff]/g, char =>

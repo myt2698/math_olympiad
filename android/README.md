@@ -4,14 +4,14 @@
 
 ## 技术结构
 
-- `MainActivity.kt`：首次计划设置、开始日期锁定、每日课程与学习足迹
+- `MainActivity.kt`：首次计划设置、第一天日期调整、每日课程与学习足迹
 - `LessonActivity.kt`：Android 原生 `VideoView` 视频播放页
 - `LessonActivity.kt`：视频播放、对应随堂题与完成结果
 - `ProgressStore.kt`：用 `SharedPreferences` 保存计划及学习进度
 - `CourseRepository.kt`：读取统一的 JSON 课程清单
 - `assets/curriculum.json`：课程、视频地址和知识点数据
 
-课程会均匀分布到 40 天，并按学后第 1、3、7、14 天自动安排轻量复习；网页与 Android 原生版使用相同的计划规则。
+课程会均匀分布到 40 天，并按学后第 1、3、7、14 天自动安排轻量复习；60 道亲子拆题训练按每天 2 道安排在前 30 天。网页与 Android 原生版使用相同的计划规则。
 
 最低支持 Android 8.0（API 26），目标 API 36。
 
@@ -56,8 +56,8 @@ node ..\tools\generate-android-curriculum.mjs 1 --embed
 
 然后把对应地址改为 `asset://videos/grade1/文件名.mp4`。
 
-## 日期锁定
+## 第一天日期设置
 
-`ProgressStore.createPlan()` 在已有学习计划时会直接返回 `false`，所以开始日期和年级不能通过普通界面再次修改。卸载应用或清除应用数据才会移除本地计划。
+`ProgressStore.createPlan()` 在已有学习计划时会直接返回 `false`，所以年级不能通过普通界面再次修改。第一天日期可从主页右上角调整，已有的每日完成记录和星星奖励会按对应天数迁移。
 
-正式上线后应将这一规则同时放在后端，避免用户换设备或清除本地数据后绕过锁定。
+正式上线后应将计划设置与记录迁移规则同时放在后端，确保用户换设备后保持一致。

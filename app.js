@@ -88,7 +88,15 @@ function bindEvents(){
   $('setupForm').addEventListener('submit',e=>{
     e.preventDefault(); const data=new FormData(e.currentTarget);
     state={name:data.get('childName').trim(),grade:Number(data.get('grade')),startDate:data.get('startDate'),completedLessons:{},completedQuestions:{},completedDays:{},dayRewards:{}};
-    saveState(); render(); toast('计划已创建，开始日期已锁定 🔒');
+    saveState(); render(); toast('计划已创建，可在右上角调整第一天日期');
+  });
+  $('openStartDateSettings').addEventListener('click',()=>{
+    $('settingsStartDate').value=state.startDate;
+    $('startDateDialog').showModal();
+  });
+  $('startDateSettingsForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    updateStartDate($('settingsStartDate').value);
   });
   $('taskList').addEventListener('click',e=>{const b=e.target.closest('[data-lesson]');if(b)openLesson(b.dataset.lesson)});
   $('reviewCard').addEventListener('click',e=>{const b=e.target.closest('[data-review-lesson]');if(b)openLesson(b.dataset.reviewLesson)});
@@ -111,6 +119,29 @@ function render(){
   renderPlanBoard(plan,idx,selectedPlanDay); $('totalStars').textContent=calculateTotalStars(plan);
 }
 function ensureRewards(){state.completedLessons=state.completedLessons||{};state.completedQuestions=state.completedQuestions||{};state.completedDays=state.completedDays||{};state.dayRewards=state.dayRewards||{}}
+function migratePlanDatedRecords(records,oldStart,newStart){
+  const migrated={};
+  Object.entries(records||{}).forEach(([date,value])=>{
+    const offset=dayDiff(date,oldStart);
+    const nextDate=offset>=0&&offset<PLAN_DAYS?isoLocal(addDays(parseDate(newStart),offset)):date;
+    migrated[nextDate]=value;
+  });
+  return migrated;
+}
+function updateStartDate(newStart){
+  if(!state||!newStart)return;
+  const oldStart=state.startDate;
+  if(newStart===oldStart){$('startDateDialog').close();return}
+  ensureRewards();
+  state.completedDays=migratePlanDatedRecords(state.completedDays,oldStart,newStart);
+  state.dayRewards=migratePlanDatedRecords(state.dayRewards,oldStart,newStart);
+  state.startDate=newStart;
+  selectedPlanDay=null;
+  saveState();
+  $('startDateDialog').close();
+  render();
+  toast('第一天日期已更新，学习记录已同步迁移');
+}
 function renderPlanBoard(plan,idx,selectedDay){
   $('dateStrip').innerHTML=plan.map(day=>{
     const date=isoLocal(addDays(parseDate(state.startDate),day.day)),d=parseDate(date),done=!!state.completedDays[date],today=day.day===idx,past=day.day<idx&&!done,selected=day.day===selectedDay;

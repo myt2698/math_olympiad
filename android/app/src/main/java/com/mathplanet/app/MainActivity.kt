@@ -91,7 +91,7 @@ class MainActivity : android.app.Activity() {
             }
         }
         card.addView(dateButton, LayoutParams(LayoutParams.MATCH_PARENT, dp(52)))
-        card.addView(Ui.text(this, "日期锁定 · 开始后年级和日期不能修改，挑战记录会保持连续。", 11f, 0xFF66520B.toInt(), true).apply {
+        card.addView(Ui.text(this, "日期设置 · 创建后仍可从主页右上角调整第一天日期，已有记录会同步迁移。", 11f, 0xFF66520B.toInt(), true).apply {
             background = Ui.rounded(0xFFFFF5BF.toInt(), 12, this@MainActivity, 0xFFE2B834.toInt())
             setPadding(dp(12), dp(12), dp(12), dp(12)); margin(top = 18, bottom = 20)
         })
@@ -163,11 +163,33 @@ class MainActivity : android.app.Activity() {
             copy.addView(Ui.text(this@MainActivity, "思维挑战地图", 27f, Ui.NAVY, true).apply { margin(top = 5) })
             copy.addView(Ui.text(this@MainActivity, "每完成一次思考，大脑就升级一次。", 10f, 0xFF365F7B.toInt()).apply { margin(top = 5) })
             addView(copy, LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f))
-            addView(ImageView(this@MainActivity).apply {
-                setImageResource(R.mipmap.ic_launcher)
-                scaleType = ImageView.ScaleType.CENTER_CROP
-            }, LayoutParams(dp(58), dp(58)))
+            addView(LinearLayout(this@MainActivity).apply {
+                orientation = LinearLayout.VERTICAL
+                gravity = Gravity.END
+                addView(Ui.text(this@MainActivity, "设置第一天日期", 10f, 0xFF235C80.toInt(), true).apply {
+                    background = Ui.rounded(0xFFF8FCFF.toInt(), 10, this@MainActivity, 0xFF69B4DF.toInt())
+                    setPadding(dp(10), dp(7), dp(10), dp(7))
+                    setOnClickListener { showStartDateDialog() }
+                })
+                addView(ImageView(this@MainActivity).apply {
+                    setImageResource(R.mipmap.ic_launcher)
+                    scaleType = ImageView.ScaleType.CENTER_CROP
+                }, LayoutParams(dp(42), dp(42)).apply { topMargin = dp(8) })
+            })
         }
+    }
+
+    private fun showStartDateDialog() {
+        val plan = store.userPlan() ?: return
+        val current = LocalDate.parse(plan.startDate)
+        DatePickerDialog(this, { _, year, month, day ->
+            val newDate = LocalDate.of(year, month + 1, day)
+            if (store.updateStartDate(newDate)) {
+                selectedPlanDay = null
+                render()
+                Toast.makeText(this, "第一天日期已更新，学习记录已同步迁移", Toast.LENGTH_SHORT).show()
+            }
+        }, current.year, current.monthValue - 1, current.dayOfMonth).show()
     }
 
     private fun planBoard(user: UserPlan, plans: List<DayPlan>, rawDay: Int, selectedDay: Int): View {

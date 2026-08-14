@@ -22,6 +22,42 @@ class ProgressStore(context: Context) {
         return true
     }
 
+    fun updateStartDate(newStartDate: LocalDate): Boolean {
+        val plan = userPlan() ?: return false
+        val oldStartDate = LocalDate.parse(plan.startDate)
+        if (oldStartDate == newStartDate) return true
+
+        val snapshot = prefs.all
+        val prefixes = listOf("day_", "answered_", "correct_", "perfect_")
+        val oldKeys = mutableSetOf<String>()
+        val migrated = mutableMapOf<String, Any>()
+        repeat(40) { dayIndex ->
+            val oldDate = oldStartDate.plusDays(dayIndex.toLong())
+            val newDate = newStartDate.plusDays(dayIndex.toLong())
+            prefixes.forEach { prefix ->
+                val oldKey = "$prefix$oldDate"
+                snapshot[oldKey]?.let { value ->
+                    oldKeys += oldKey
+                    migrated["$prefix$newDate"] = value
+                }
+            }
+        }
+
+        prefs.edit().apply {
+            oldKeys.forEach { remove(it) }
+            migrated.forEach { (key, value) ->
+                when (value) {
+                    is String -> putString(key, value)
+                    is Int -> putInt(key, value)
+                    is Boolean -> putBoolean(key, value)
+                }
+            }
+            putString("start_date", newStartDate.toString())
+            apply()
+        }
+        return true
+    }
+
     fun markLessonComplete(id: String) {
         prefs.edit().putBoolean("lesson_$id", true).apply()
     }

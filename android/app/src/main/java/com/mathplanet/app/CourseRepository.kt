@@ -5,7 +5,7 @@ import org.json.JSONArray
 
 class CourseRepository(private val context: Context) {
     companion object {
-        const val PLAN_DAYS = 40
+        const val GRADE_BLOCK_DAYS = 40
         private val REVIEW_GAPS = listOf(1 to "隔天回顾", 3 to "三天巩固", 7 to "一周复习", 14 to "两周唤醒")
     }
 
@@ -20,15 +20,24 @@ class CourseRepository(private val context: Context) {
     fun decompositionForDay(index: Int): DecompositionTask? = decompositionTasks.getOrNull(index)
 
     fun planForGrade(grade: Int): List<DayPlan> {
-        val uploadedLessons = allLessons.filter { it.grade == grade }
-        val gradeLessons = uploadedLessons.ifEmpty { demoLessons(grade) }
-        val groupedLessons = if (uploadedLessons.isNotEmpty()) {
-            List(PLAN_DAYS) { day -> gradeLessons.filterIndexed { index, _ -> index * PLAN_DAYS / gradeLessons.size == day } }
+        val availableGrades = allLessons.map { it.grade }.toSet()
+        val gradeSequence = if (grade == 1 && 2 in availableGrades) listOf(1, 2) else listOf(grade)
+        val hasUploadedPlan = gradeSequence.all { it in availableGrades }
+        val groupedLessons = if (hasUploadedPlan) {
+            gradeSequence.flatMap { itemGrade ->
+                val gradeLessons = allLessons.filter { it.grade == itemGrade }
+                List(GRADE_BLOCK_DAYS) { day ->
+                    gradeLessons.filterIndexed { index, _ -> index * GRADE_BLOCK_DAYS / gradeLessons.size == day }
+                }
+            }
         } else {
-            List(PLAN_DAYS) { day -> gradeLessons.filterIndexed { index, _ -> index * PLAN_DAYS / gradeLessons.size == day } }
+            val gradeLessons = demoLessons(grade)
+            List(GRADE_BLOCK_DAYS) { day ->
+                gradeLessons.filterIndexed { index, _ -> index * GRADE_BLOCK_DAYS / gradeLessons.size == day }
+            }
         }
         return groupedLessons.mapIndexed { index, lessons ->
-            val questions = if (uploadedLessons.isNotEmpty()) {
+            val questions = if (hasUploadedPlan) {
                 lessons.mapNotNull { allQuestions[it.id] }
             } else {
                 questionsFor(grade, lessons.firstOrNull()?.topic ?: "思维训练", index)

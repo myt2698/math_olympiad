@@ -1,5 +1,6 @@
 const APP_KEY = 'mathPlanetStateV1';
-const PLAN_DAYS = 40;
+const GRADE_BLOCK_DAYS = 40;
+const PLAN_DAYS = 80;
 const REVIEW_GAPS = [
   {days:1,label:'隔天回顾'},
   {days:3,label:'三天巩固'},
@@ -47,17 +48,22 @@ function addReviewSchedule(days){
   return days;
 }
 function makePlan(grade){
-  const realLessons=uploadedCurriculum.filter(item=>item.grade===grade).map(item=>({
-    id:item.id,title:item.title,topic:item.topic,duration:item.durationMinutes||6,
-    videoUrl:item.videoUrl,points:['观察条件','画图分析','举一反三']
-  }));
-  if(realLessons.length){
-    const days=Array.from({length:PLAN_DAYS},(_,day)=>({day,lessons:[],quiz:[],reviews:[]}));
-    realLessons.forEach((lesson,index)=>{
-      const day=Math.floor(index*PLAN_DAYS/realLessons.length);
-      days[day].lessons.push(lesson);
-      const question=questionsByVideo.get(lesson.id);
-      if(question) days[day].quiz.push(question);
+  const availableGrades=new Set(uploadedCurriculum.map(item=>item.grade));
+  const gradeSequence=grade===1&&availableGrades.has(2)?[1,2]:[grade];
+  const hasRealLessons=gradeSequence.every(itemGrade=>availableGrades.has(itemGrade));
+  if(hasRealLessons){
+    const days=Array.from({length:gradeSequence.length*GRADE_BLOCK_DAYS},(_,day)=>({day,lessons:[],quiz:[],reviews:[]}));
+    gradeSequence.forEach((itemGrade,blockIndex)=>{
+      const gradeLessons=uploadedCurriculum.filter(item=>item.grade===itemGrade).map(item=>({
+        id:item.id,title:item.title,topic:item.topic,duration:item.durationMinutes||6,
+        videoUrl:item.videoUrl,points:['观察条件','画图分析','举一反三']
+      }));
+      gradeLessons.forEach((lesson,index)=>{
+        const day=blockIndex*GRADE_BLOCK_DAYS+Math.floor(index*GRADE_BLOCK_DAYS/gradeLessons.length);
+        days[day].lessons.push(lesson);
+        const question=questionsByVideo.get(lesson.id);
+        if(question) days[day].quiz.push(question);
+      });
     });
     return addReviewSchedule(days);
   }
@@ -67,8 +73,8 @@ function makePlan(grade){
     const part=(i%3)+1;
     lessons.push({id:`g${grade}-v${i+1}`,title:`${topic} · ${['认识方法','例题拆解','举一反三'][part-1]}`,topic,duration:[6,7,5,8][i%4],points:['观察条件','画图分析','举一反三'].slice(0,2+(i%2))});
   }
-  const days=Array.from({length:PLAN_DAYS},(_,day)=>({day,lessons:[],quiz:makeQuiz(grade,list[day%list.length],day),reviews:[]}));
-  lessons.forEach((lesson,index)=>days[Math.floor(index*PLAN_DAYS/lessons.length)].lessons.push(lesson));
+  const days=Array.from({length:GRADE_BLOCK_DAYS},(_,day)=>({day,lessons:[],quiz:makeQuiz(grade,list[day%list.length],day),reviews:[]}));
+  lessons.forEach((lesson,index)=>days[Math.floor(index*GRADE_BLOCK_DAYS/lessons.length)].lessons.push(lesson));
   return addReviewSchedule(days);
 }
 function makeQuiz(grade,topic,day){

@@ -1,13 +1,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { grade2QuestionSpecs } from './grade2-question-specs.mjs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const curriculum = JSON.parse(fs.readFileSync(path.join(root, 'android/app/src/main/assets/curriculum.json'), 'utf8'));
 
 // Each item is deliberately bound to one video. The source title is kept in the
 // generated data so both clients can show children exactly where a question came from.
-const specs = [
+const grade1Specs = [
   ['需要换位思考的位置关系','小明面向东站着。小红和小明面对面站着，小红面向哪边？',['东','西','南'],1,'面对面时，两人的朝向正好相反。'],
   ['分类','下面哪一个和另外两个不是同一类？',['苹果','香蕉','皮球'],2,'苹果和香蕉都是水果，皮球是玩具。'],
   ['找路线走一走','从家到公园要先向右走2格，再向上走1格。原路返回时应该怎样走？',['先向下走1格，再向左走2格','先向左走2格，再向下走1格','先向上走1格，再向右走2格'],0,'原路返回时，要先把最后走的“向上1格”反过来走，再把“向右2格”反过来走，所以是先向下1格，再向左2格。'],
@@ -93,12 +94,38 @@ const specs = [
   ['分给两个相同对象','把两个完全相同的球分别放进两个不同盒子，每盒1个，有几种分法？',['1种','2种','4种'],0,'球完全相同且每盒1个，交换球不会产生新分法。']
 ];
 
-if (specs.length !== curriculum.length) throw new Error(`Question count ${specs.length} does not match lesson count ${curriculum.length}`);
+const grade1Lessons = curriculum.filter(lesson => lesson.grade === 1);
+const grade2Lessons = curriculum.filter(lesson => lesson.grade === 2);
 
-const questions = curriculum.map((lesson, index) => {
-  const [title, q, opts, answer, explain] = specs[index];
-  if (lesson.title !== title) throw new Error(`Title mismatch at ${index + 1}: ${lesson.title} / ${title}`);
-  return { videoId: lesson.id, sourceTitle: title, q, opts, answer, explain };
+if (grade1Specs.length !== grade1Lessons.length) {
+  throw new Error(`Grade-1 question count ${grade1Specs.length} does not match lesson count ${grade1Lessons.length}`);
+}
+
+const grade1ById = new Map(grade1Lessons.map((lesson, index) => {
+  const [title, q, opts, answer, explain] = grade1Specs[index];
+  if (lesson.title !== title) throw new Error(`Grade-1 title mismatch at ${index + 1}: ${lesson.title} / ${title}`);
+  return [lesson.id, { q, opts, answer, explain }];
+}));
+
+const grade2Titles = new Set(grade2Lessons.map(lesson => lesson.title));
+const grade2SpecTitles = Object.keys(grade2QuestionSpecs);
+const missingGrade2 = grade2Lessons.filter(lesson => !grade2QuestionSpecs[lesson.title]);
+const extraGrade2 = grade2SpecTitles.filter(title => !grade2Titles.has(title));
+if (missingGrade2.length || extraGrade2.length || grade2SpecTitles.length !== grade2Lessons.length) {
+  throw new Error(`Grade-2 question mapping mismatch. Missing: ${missingGrade2.map(item => item.title).join('、') || 'none'}; extra: ${extraGrade2.join('、') || 'none'}`);
+}
+
+const questions = curriculum.map(lesson => {
+  let spec;
+  if (lesson.grade === 1) {
+    spec = grade1ById.get(lesson.id);
+  } else if (lesson.grade === 2) {
+    const [q, opts, answer, explain] = grade2QuestionSpecs[lesson.title];
+    spec = { q, opts, answer, explain };
+  } else {
+    throw new Error(`No question generator configured for grade ${lesson.grade}: ${lesson.title}`);
+  }
+  return { videoId: lesson.id, sourceTitle: lesson.title, ...spec };
 });
 
 const ascii = value => JSON.stringify(value, null, 2).replace(/[\u007f-\uffff]/g, char =>

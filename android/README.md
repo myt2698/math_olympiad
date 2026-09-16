@@ -11,7 +11,7 @@
 - `CourseRepository.kt`：读取统一的 JSON 课程清单
 - `assets/curriculum.json`：课程、视频地址和知识点数据
 
-课程会均匀分布到 40 天，并按学后第 1、3、7、14 天自动安排轻量复习；60 道亲子拆题训练按每天 2 道安排在前 30 天。网页与 Android 原生版使用相同的计划规则。
+一年级与二年级课程连续分布到 80 天：一年级为前 40 天，二年级为后 40 天，每天 2–3 个视频。系统按学后第 1、3、7、14 天自动安排轻量复习；60 道亲子拆题训练按每天 2 道安排在前 30 天。网页与 Android 原生版使用相同的计划规则。
 
 最低支持 Android 8.0（API 26），目标 API 36。
 
@@ -38,7 +38,7 @@ node ..\tools\generate-android-curriculum.mjs 1
 node ..\tools\generate-android-curriculum.mjs 1 --embed
 ```
 
-`--embed` 会先删除 `assets/videos` 中之前内置的年级，再复制当前年级。因此以后上传二年级后，执行参数 `2 --embed`，一年级视频会自动从 Android 工程移除。
+`--embed` 只会更新当前年级的内置视频和课程清单，不会删除其他年级。依次执行参数 `1 --embed`、`2 --embed`，两个年级就可以同时保留在 Android 工程中。
 
 ## 接入视频
 
@@ -48,13 +48,13 @@ node ..\tools\generate-android-curriculum.mjs 1 --embed
 - 内置小视频：`asset://videos/grade1/001.mp4`
 - 本地绝对路径：`file:///data/user/0/.../001.mp4`
 
-当前交付方案按要求一次只内置一个年级。一个年级的 APK 仍可能达到数百 MB，比较适合直接分发 APK。
+当前工程同时内置一年级和二年级视频，生成的 APK 体积会较大，比较适合直接分发 APK。
 
-若确实需要内置视频，把文件放入：
+内置视频按年级分别放入：
 
-`app/src/main/assets/videos/grade1/`
+`app/src/main/assets/videos/grade1/`、`app/src/main/assets/videos/grade2/`
 
-然后把对应地址改为 `asset://videos/grade1/文件名.mp4`。
+然后把对应地址写成 `asset://videos/grade1/文件名.mp4` 或 `asset://videos/grade2/文件名.mp4`。
 
 ## 第一天日期设置
 

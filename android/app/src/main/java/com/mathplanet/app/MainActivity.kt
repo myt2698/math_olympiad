@@ -50,9 +50,9 @@ class MainActivity : android.app.Activity() {
             setImageResource(R.mipmap.ic_launcher)
             scaleType = ImageView.ScaleType.CENTER_CROP
         }, LayoutParams(dp(72), dp(72)).apply { bottomMargin = dp(22) })
-        root.addView(Ui.text(this, "40 DAYS · THINKING QUEST", 10f, Ui.PURPLE, true))
+        root.addView(Ui.text(this, "80 DAYS · THINKING QUEST", 10f, Ui.PURPLE, true))
         root.addView(Ui.text(this, "准备好了吗？\n开启你的思维挑战", 33f, Ui.INK, true).apply { margin(top = 8) })
-        root.addView(Ui.text(this, "40 天循序学习，每天 2–3 个短视频、对应小题和少量复习。\n轻松坚持，不给孩子增加负担。", 14f, Ui.MUTED).apply { margin(top = 15, bottom = 30) })
+        root.addView(Ui.text(this, "80 天循序学习：前 40 天完成一年级内容，后 40 天继续挑战二年级。\n每天 2–3 个短视频、对应小题和少量复习。", 14f, Ui.MUTED).apply { margin(top = 15, bottom = 30) })
 
         val card = verticalCard()
         card.addView(Ui.text(this, "家长设置 · 只需一次", 11f, Ui.PURPLE, true))
@@ -96,7 +96,7 @@ class MainActivity : android.app.Activity() {
             setPadding(dp(12), dp(12), dp(12), dp(12)); margin(top = 18, bottom = 20)
         })
 
-        val submit = primaryButton("开启 40 天挑战")
+        val submit = primaryButton("开启 80 天挑战")
         submit.setOnClickListener {
             val name = nameInput.text.toString().trim()
             if (name.isBlank()) {
@@ -159,7 +159,7 @@ class MainActivity : android.app.Activity() {
             background = Ui.rounded(Ui.SKY, 22, this@MainActivity)
             setPadding(dp(20), dp(20), dp(20), dp(20))
             val copy = LinearLayout(this@MainActivity).apply { orientation = LinearLayout.VERTICAL }
-            copy.addView(Ui.text(this@MainActivity, "40 DAYS · THINKING QUEST", 9f, 0xFF26638F.toInt(), true))
+            copy.addView(Ui.text(this@MainActivity, "80 DAYS · THINKING QUEST", 9f, 0xFF26638F.toInt(), true))
             copy.addView(Ui.text(this@MainActivity, "思维挑战地图", 27f, Ui.NAVY, true).apply { margin(top = 5) })
             copy.addView(Ui.text(this@MainActivity, "每完成一次思考，大脑就升级一次。", 10f, 0xFF365F7B.toInt()).apply { margin(top = 5) })
             addView(copy, LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f))

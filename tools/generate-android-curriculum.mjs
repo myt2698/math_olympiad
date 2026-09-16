@@ -39,13 +39,12 @@ const videos = walk(sourceRoot)
   .sort((a, b) => a.section - b.section || a.order - b.order);
 
 if (embedVideos) {
-  // The APK intentionally contains only one grade at a time. Rebuilding with
-  // --embed removes the previously embedded grade before copying the new one.
-  fs.rmSync(androidVideosRoot, { recursive: true, force: true });
+  // Replace only the selected grade so sequential grade plans can coexist.
+  fs.rmSync(gradeAssetsRoot, { recursive: true, force: true });
   fs.mkdirSync(gradeAssetsRoot, { recursive: true });
 }
 
-const curriculum = videos.map((video, index) => {
+const gradeCurriculum = videos.map((video, index) => {
   const id = `g${grade}-v${String(index + 1).padStart(3, '0')}`;
   if (embedVideos) fs.copyFileSync(video.file, path.join(gradeAssetsRoot, `${id}.mp4`));
   return {
@@ -58,10 +57,31 @@ const curriculum = videos.map((video, index) => {
   };
 });
 
-const webCurriculum = curriculum.map((item, index) => ({
+const gradeWebCurriculum = gradeCurriculum.map((item, index) => ({
   ...item,
   videoUrl: path.relative(projectRoot, videos[index].file).split(path.sep).map(encodeURIComponent).join('/')
 }));
+
+function readJsonArray(file) {
+  return fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : [];
+}
+
+function readWebCurriculum(file) {
+  if (!fs.existsSync(file)) return [];
+  const source = fs.readFileSync(file, 'utf8').trim();
+  const prefix = 'window.MATH_PLANET_CURRICULUM = ';
+  if (!source.startsWith(prefix) || !source.endsWith(';')) return [];
+  return JSON.parse(source.slice(prefix.length, -1));
+}
+
+const curriculum = [
+  ...readJsonArray(output).filter(item => item.grade !== grade),
+  ...gradeCurriculum
+].sort((a, b) => a.grade - b.grade || a.id.localeCompare(b.id));
+const webCurriculum = [
+  ...readWebCurriculum(webOutput).filter(item => item.grade !== grade),
+  ...gradeWebCurriculum
+].sort((a, b) => a.grade - b.grade || a.id.localeCompare(b.id));
 
 function asciiJavaScript(value) {
   return JSON.stringify(value, null, 2).replace(/[\u007f-\uffff]/g, char =>
@@ -72,4 +92,4 @@ function asciiJavaScript(value) {
 fs.mkdirSync(path.dirname(output), { recursive: true });
 fs.writeFileSync(output, `${JSON.stringify(curriculum, null, 2)}\n`, 'utf8');
 fs.writeFileSync(webOutput, `window.MATH_PLANET_CURRICULUM = ${asciiJavaScript(webCurriculum)};\n`, 'ascii');
-process.stdout.write(`Generated ${curriculum.length} grade-${grade} lessons${embedVideos ? ' with embedded videos' : ''}\n`);
+process.stdout.write(`Generated ${gradeCurriculum.length} grade-${grade} lessons; ${curriculum.length} total${embedVideos ? ' with embedded videos' : ''}\n`);

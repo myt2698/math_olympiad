@@ -31,7 +31,7 @@ class ProgressStore(context: Context) {
         val prefixes = listOf("day_", "answered_", "correct_", "perfect_")
         val oldKeys = mutableSetOf<String>()
         val migrated = mutableMapOf<String, Any>()
-        repeat(40) { dayIndex ->
+        repeat(80) { dayIndex ->
             val oldDate = oldStartDate.plusDays(dayIndex.toLong())
             val newDate = newStartDate.plusDays(dayIndex.toLong())
             prefixes.forEach { prefix ->

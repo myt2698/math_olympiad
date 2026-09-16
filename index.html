@@ -12,7 +12,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
-  <link rel="stylesheet" href="styles.css?v=44" />
+  <link rel="stylesheet" href="styles.css?v=45" />
 </head>
 <body>
   <div class="app-shell">
@@ -20,11 +20,11 @@
       <section id="setupView" class="setup-view" hidden>
         <div class="setup-copy">
           <img class="setup-logo" src="icons/icon.svg" alt="" />
-          <span class="eyebrow">40 DAYS · THINKING QUEST</span>
+          <span class="eyebrow">80 DAYS · THINKING QUEST</span>
           <h1>准备好了吗？<br>开启你的<em>思维挑战</em></h1>
-          <p>40 天循序学习，每天 2–3 个短视频、对应小题和少量复习。轻松坚持，不给孩子增加负担。</p>
+          <p>80 天循序学习：前 40 天完成一年级内容，后 40 天继续挑战二年级。每天 2–3 个短视频、对应小题和少量复习。</p>
           <div class="setup-benefits">
-            <div><b>40</b><span>天挑战地图</span></div>
+            <div><b>80</b><span>天挑战地图</span></div>
             <div><b>4</b><span>次科学复习</span></div>
             <div><b>60</b><span>道拆题训练</span></div>
           </div>
@@ -47,7 +47,7 @@
             <input id="startDate" name="startDate" type="date" required />
           </label>
           <div class="lock-note"><b>日期设置</b><p><strong>创建后仍可从主页右上角调整第一天日期</strong><br>已有学习记录会跟随对应天数一起迁移。</p></div>
-          <button class="primary-button" type="submit">开启 40 天挑战</button>
+          <button class="primary-button" type="submit">开启 80 天挑战</button>
         </form>
       </section>
 
@@ -55,7 +55,7 @@
         <section class="plan-board" id="planBoard">
           <div class="challenge-hero">
             <div class="challenge-copy">
-              <span>40 DAYS · THINKING QUEST</span>
+              <span>80 DAYS · THINKING QUEST</span>
               <h1>思维挑战地图</h1>
               <p>每完成一次思考，你的大脑就升级一次。</p>
             </div>
@@ -119,10 +119,10 @@
 
 
   <div class="toast" id="toast" role="status"></div>
-  <script src="curriculum.js?v=44"></script>
-  <script src="questions.js?v=44"></script>
-  <script src="decomposition.js?v=44"></script>
-  <script src="app.js?v=44"></script>
+  <script src="curriculum.js?v=45"></script>
+  <script src="questions.js?v=45"></script>
+  <script src="decomposition.js?v=45"></script>
+  <script src="app.js?v=45"></script>
   <script>
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
       addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
